@@ -12,9 +12,9 @@ function loadDataTable() {
             "datatype": "json"
         },
         "columns": [
-            { "data": "name", "width": "20%" },
+            { "data": "name", "width": "30%" },
             { "data": "author", "width": "20%" },
-            { "data": "isbn", "width": "20%" },
+            { "data": "isbn", "width": "30%" },
             {
                 "data": "id",
                 "render": function (data) {
@@ -28,7 +28,7 @@ function loadDataTable() {
                             Delete
                         </a>
                         </div>`;
-                }, "width": "40%"
+                }, "width": "20%"
             }
         ],
         "language": {
