@@ -24,6 +24,10 @@ namespace BookListMVC.Controllers {
       return View();
     }
 
+    public IActionResult AppUserBooks() {
+      return View();
+    }
+
     public IActionResult Upsert(int? id) {
       Book = new Book();
       if (id == null) {
