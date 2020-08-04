@@ -13,12 +13,12 @@ namespace BookListMVC.Controllers {
 
     private readonly ApplicationDbContext _db;
 
-    [BindProperty]
-    public Book Book { get; set; }
-
     public BooksController(ApplicationDbContext db) {
       _db = db;
     }
+
+    [BindProperty]
+    public Book Book { get; set; }
 
     public IActionResult Index() {
       return View();
