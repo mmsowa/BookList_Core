@@ -70,6 +70,11 @@ namespace BookListMVC.Controllers {
       await _db.SaveChangesAsync();
       return Json(new { success = true, message = "Delete successful" });
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetBook(int id) {
+      return Json(new { data = await _db.Books.FirstOrDefaultAsync(bk => bk.Id == id) });
+    }
     #endregion
   }
 }
