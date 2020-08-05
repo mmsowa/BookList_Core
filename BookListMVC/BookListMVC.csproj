@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\AuthDb\20200805090557_Try_to_fix_stuff.cs" />
-    <Compile Remove="Migrations\AuthDb\20200805090557_Try_to_fix_stuff.Designer.cs" />
+    <Compile Remove="Migrations\20200805120103_update_book_id.cs" />
+    <Compile Remove="Migrations\20200805120103_update_book_id.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

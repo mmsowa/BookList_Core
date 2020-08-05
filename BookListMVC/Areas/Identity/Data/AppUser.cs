@@ -15,5 +15,7 @@ namespace BookListMVC.Areas.Identity.Data {
     [PersonalData]
     [Column(TypeName = "nvarchar(100)")]
     public string LastName { get; set; }
+
+    public ICollection<AppUserBook> AppUserBooks { get; set; }
   }
 }

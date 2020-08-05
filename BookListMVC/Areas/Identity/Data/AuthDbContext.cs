@@ -16,10 +16,16 @@ namespace BookListMVC.Data {
 
     protected override void OnModelCreating(ModelBuilder builder) {
       base.OnModelCreating(builder);
+
+      builder.Entity<AppUserBook>().HasKey(ab => new { ab.AppUserId, ab.BookId });
+      builder.Entity<AppUserBook>().HasOne(au => au.AppUser).WithMany(a => a.AppUserBooks).HasForeignKey(au => au.AppUserId);
+      builder.Entity<AppUserBook>().HasOne(au => au.Book).WithMany(a => a.AppUserBooks).HasForeignKey(au => au.BookId);
     }
 
     public DbSet<AppUser> AppUsers { get; set; }
 
     public DbSet<Book> Books { get; set; }
+
+    public DbSet<AppUserBook> AppUserBooks { get; set; }
   }
 }

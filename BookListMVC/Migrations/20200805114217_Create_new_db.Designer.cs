@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace BookListMVC.Migrations.AuthDb
+namespace BookListMVC.Migrations
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20200805071655_Add_Book_Collection_To_User")]
-    partial class Add_Book_Collection_To_User
+    [Migration("20200805114217_Create_new_db")]
+    partial class Create_new_db
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -92,14 +92,24 @@ namespace BookListMVC.Migrations.AuthDb
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("BookListMVC.Models.AppUserBook", b =>
+                {
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("BookId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("AppUserId", "BookId");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("AppUserBooks");
+                });
+
             modelBuilder.Entity("BookListMVC.Models.Book", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AppUserId")
+                    b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Author")
@@ -114,9 +124,7 @@ namespace BookListMVC.Migrations.AuthDb
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppUserId");
-
-                    b.ToTable("Book");
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -254,11 +262,19 @@ namespace BookListMVC.Migrations.AuthDb
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("BookListMVC.Models.Book", b =>
+            modelBuilder.Entity("BookListMVC.Models.AppUserBook", b =>
                 {
-                    b.HasOne("BookListMVC.Areas.Identity.Data.AppUser", null)
-                        .WithMany("Book")
-                        .HasForeignKey("AppUserId");
+                    b.HasOne("BookListMVC.Areas.Identity.Data.AppUser", "AppUser")
+                        .WithMany("AppUserBooks")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BookListMVC.Models.Book", "Book")
+                        .WithMany("AppUserBooks")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

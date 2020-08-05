@@ -1,12 +1,12 @@
 ﻿@model BookListMVC.Models.Book
 
 <br />
-<h2 class="text-info">@(Model.Id!=0 ? "Edit" : "Create") Book</h2>
+<h2 class="text-info">@(Model.Id != null ? "Edit" : "Create") Book</h2>
 <br />
 
 <div class="border container" style="padding:30px;">
     <form method="post">
-        @if (Model.Id != 0)
+        @if (Model.Id != null)
         {
             <input type="hidden" asp-for="Id" />
         }
@@ -41,7 +41,7 @@
         <div class="form-group row">
             <div class="col-3 offset-3">
                 <button type="submit" class="btn btn-primary form-control">
-                    @(Model.Id != 0 ? "Update" : "Create")
+                    @(Model.Id != null ? "Update" : "Create")
                 </button>
             </div>
             <div class="col-3">
