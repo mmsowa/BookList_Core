@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using BookListMVC.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace BookListMVC.Areas.Identity.Data
-{
-    // Add profile data for application users by adding properties to the AppUser class
-    public class AppUser : IdentityUser
-    {
+namespace BookListMVC.Areas.Identity.Data {
+  public class AppUser : IdentityUser {
     [PersonalData]
     [Column(TypeName = "nvarchar(100)")]
     public string FirstName { get; set; }

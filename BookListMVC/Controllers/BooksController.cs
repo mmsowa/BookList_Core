@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookListMVC.Data;
 using BookListMVC.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,9 +12,9 @@ namespace BookListMVC.Controllers {
   [Authorize]
   public class BooksController : Controller {
 
-    private readonly ApplicationDbContext _db;
+    private readonly AuthDbContext _db;
 
-    public BooksController(ApplicationDbContext db) {
+    public BooksController(AuthDbContext db) {
       _db = db;
     }
 
@@ -79,6 +80,11 @@ namespace BookListMVC.Controllers {
     public async Task<IActionResult> GetBook(int id) {
       return Json(new { data = await _db.Books.FirstOrDefaultAsync(bk => bk.Id == id) });
     }
+
+    /*[HttpPost]
+    public async Task<IActionResult> AddBookToUser(int bookId) {
+      _authDb.
+    }*/
     #endregion
   }
 }

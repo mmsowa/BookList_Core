@@ -4,14 +4,16 @@ using BookListMVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookListMVC.Migrations.AuthDb
 {
     [DbContext(typeof(AuthDbContext))]
-    partial class AuthDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200805091806_try_to_fix_ef_2")]
+    partial class try_to_fix_ef_2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,6 +90,29 @@ namespace BookListMVC.Migrations.AuthDb
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("BookListMVC.Models.AppUserBook", b =>
+                {
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AppUserId1")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("AppUserId", "BookId");
+
+                    b.HasIndex("AppUserId1");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("AppUserBook");
                 });
 
             modelBuilder.Entity("BookListMVC.Models.Book", b =>
@@ -245,6 +270,19 @@ namespace BookListMVC.Migrations.AuthDb
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("BookListMVC.Models.AppUserBook", b =>
+                {
+                    b.HasOne("BookListMVC.Areas.Identity.Data.AppUser", "AppUser")
+                        .WithMany("AppUserBooks")
+                        .HasForeignKey("AppUserId1");
+
+                    b.HasOne("BookListMVC.Models.Book", "Book")
+                        .WithMany("AppUserBooks")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
