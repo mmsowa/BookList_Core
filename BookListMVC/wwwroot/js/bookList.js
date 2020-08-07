@@ -24,10 +24,10 @@ function loadDataTable() {
                     </a>
                     &nbsp;
                     <a class='btn btn-danger text-white' style='cursor:pointer; width:70px;'
-                      onclick=Delete('/books/Delete?id='+${data})>
+                      onclick=deleteBook('/books/Delete?id='+${data})>
                       Delete
                     </a>
-                    <a class='btn btn-primary text-white' style='cursor:pointer;'>
+                    <a class='btn btn-primary text-white' style='cursor:pointer;' onclick=AddBookToUser()>
                       Add to List
                   </div>`;
         }, "width": "22%"
@@ -40,7 +40,7 @@ function loadDataTable() {
   });
 }
 
-function Delete(url) {
+function deleteBook (url) {
   swal({
     title: "Are you sure?",
     text: "Once deleted, you will not be able to recover",
@@ -65,3 +65,5 @@ function Delete(url) {
     }
   });
 }
+
+function 

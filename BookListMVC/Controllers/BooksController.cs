@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using BookListMVC.Areas.Identity.Data;
 using BookListMVC.Data;
@@ -114,6 +115,19 @@ namespace BookListMVC.Controllers {
       }
 
       return RedirectToAction("Index");
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetBooksForUser (string userId) {
+      var appUserBooks = await _db.AppUserBooks.Where(ab => ab.AppUserId == userId).ToListAsync();
+      var books = await _db.Books.ToListAsync();
+      var booksOfUser = new List<object>();
+
+      foreach(var entry in appUserBooks) {
+        booksOfUser.Add(books.FirstOrDefault(b => b.Id == entry.BookId));
+      }
+
+      return Json(new { data = booksOfUser.ToList() });
     }
 
     #endregion
