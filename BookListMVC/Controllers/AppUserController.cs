@@ -26,7 +26,9 @@ namespace BookListMVC.Controllers {
       return View();
     }
     
-    public IActionResult GetLoggedInUserId() {
+    [Route("Users/GetCurrentUserId")]
+    [HttpGet]
+    public IActionResult GetCurrentUserId() {
       var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
       return Json(new { data = userId });
     }

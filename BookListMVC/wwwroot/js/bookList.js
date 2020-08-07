@@ -4,6 +4,17 @@ $(document).ready(function () {
   loadDataTable();
 });
 
+let userId;
+$.ajax({
+  url: "Users/GetCurrentUserId",
+  type: 'get',
+  dataType: 'html',
+  success: function (data) {
+    userId = data;
+  }
+}).done(() => { console.log(userId) });
+
+
 function loadDataTable() {
   dataTable = $('#DT_load').DataTable({
     "ajax": {
@@ -27,7 +38,7 @@ function loadDataTable() {
                       onclick=deleteBook('/books/Delete?id='+${data})>
                       Delete
                     </a>
-                    <a class='btn btn-primary text-white' style='cursor:pointer;' onclick=AddBookToUser()>
+                    <a class='btn btn-primary text-white' style='cursor:pointer;' onclick=addBookToUser()>
                       Add to List
                   </div>`;
         }, "width": "22%"
@@ -66,4 +77,6 @@ function deleteBook (url) {
   });
 }
 
-function 
+function addBookToUser(_appUserId, _bookId) {
+  $.post("/Books/AddBookToUser", { appUserId: _appUserId, bookId: _bookId });
+}
