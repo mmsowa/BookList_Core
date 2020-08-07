@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookListMVC.Controllers {
-  [Authorize]
   public class BooksController : Controller {
 
     private readonly AuthDbContext _db;
@@ -21,6 +20,7 @@ namespace BookListMVC.Controllers {
     [BindProperty]
     public Book Book { get; set; }
 
+    [BindProperty]
     public AppUserBook AppUserBook { get; set; }
 
     public IActionResult Index() {
@@ -63,15 +63,6 @@ namespace BookListMVC.Controllers {
       return View(Book);
     }
 
-    [HttpPost]
-    public IActionResult CreateAppUserBookEntry(string AppUserId, string BookId) {
-      if (ModelState.IsValid) {
-        AppUserBook = new AppUserBook();
-        _db.AppUserBooks.AddAsync(AppUserBook);
-      }
-
-      return View(AppUserBook);
-    }
 
     [HttpGet]
     public async Task<IActionResult> GetAll() {
@@ -92,6 +83,33 @@ namespace BookListMVC.Controllers {
     [HttpGet]
     public async Task<IActionResult> GetBook(string id) {
       return Json(new { data = await _db.Books.FirstOrDefaultAsync(bk => bk.Id == id) });
+    }
+
+
+    public IActionResult AddBookToUser(string? id) {
+      // PLACEHOLDER
+
+      Book = new Book();
+      if (id == null) {
+        //create
+        return View(Book);
+      }
+      //update
+      Book = _db.Books.FirstOrDefault(u => u.Id == id);
+      if (Book == null) {
+        return NotFound();
+      }
+      return View(Book);
+    }
+
+    [HttpPost]
+    public IActionResult AddBookToUser(string appUserId, string bookId) {
+      AppUserBook appUserBook = new AppUserBook { AppUserId = appUserId, BookId = bookId };
+      if (ModelState.IsValid) {
+        _db.AppUserBooks.Add(appUserBook);
+        _db.SaveChanges();
+      }
+      return View(AppUserBook);
     }
     #endregion
   }

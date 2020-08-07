@@ -8,6 +8,7 @@ using BookListMVC.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace BookListMVC.Controllers {
   [Authorize]
@@ -23,6 +24,11 @@ namespace BookListMVC.Controllers {
 
     public IActionResult Index() {
       return View();
+    }
+    
+    public IActionResult GetLoggedInUserId() {
+      var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+      return Json(new { data = userId });
     }
 
     #region API Calls
