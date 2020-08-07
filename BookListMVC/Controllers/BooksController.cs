@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookListMVC.Areas.Identity.Data;
 using BookListMVC.Data;
 using BookListMVC.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -22,6 +23,8 @@ namespace BookListMVC.Controllers {
 
     [BindProperty]
     public AppUserBook AppUserBook { get; set; }
+
+    public AppUser AppUser { get; set; }
 
     public IActionResult Index() {
       return View();
@@ -85,32 +88,34 @@ namespace BookListMVC.Controllers {
       return Json(new { data = await _db.Books.FirstOrDefaultAsync(bk => bk.Id == id) });
     }
 
-
-    public IActionResult AddBookToUser(string? id) {
-      // PLACEHOLDER
-
-      Book = new Book();
-      if (id == null) {
-        //create
-        return View(Book);
-      }
-      //update
-      Book = _db.Books.FirstOrDefault(u => u.Id == id);
-      if (Book == null) {
-        return NotFound();
-      }
-      return View(Book);
-    }
-
     [HttpPost]
     public IActionResult AddBookToUser(string appUserId, string bookId) {
-      AppUserBook appUserBook = new AppUserBook { AppUserId = appUserId, BookId = bookId };
-      if (ModelState.IsValid) {
-        _db.AppUserBooks.Add(appUserBook);
-        _db.SaveChanges();
+      var appUser = _db.AppUsers.FirstOrDefault(u => u.Id == appUserId);
+      var book = _db.Books.FirstOrDefault(b => b.Id == bookId);
+
+      if (appUser != null && book != null) {
+        var appUserBook = new AppUserBook {
+          AppUserId = appUserId,
+          AppUser = appUser,
+          BookId = bookId,
+          Book = book,
+        };
+
+        if (appUser.AppUserBooks == null) {
+          appUser.AppUserBooks = new List<AppUserBook>();
+        }
+
+        if (appUser.AppUserBooks.Contains(appUserBook)) {
+          return RedirectToAction("Index");
+        } else {
+          appUser.AppUserBooks.Add(appUserBook);
+          _db.SaveChanges();
+        }
       }
-      return View(AppUserBook);
+
+      return RedirectToAction("Index");
     }
+
     #endregion
   }
 }
