@@ -30,7 +30,7 @@ namespace BookListMVC.Controllers {
     [HttpGet]
     public IActionResult GetCurrentUserId() {
       var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-      return Json(new { data = userId });
+      return Json(new { userId });
     }
 
     #region API Calls

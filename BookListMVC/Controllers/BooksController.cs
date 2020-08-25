@@ -90,9 +90,9 @@ namespace BookListMVC.Controllers {
     }
 
     [HttpPost]
-    public IActionResult AddBookToUser(string appUserId, string bookId) {
-      var appUser = _db.AppUsers.FirstOrDefault(u => u.Id == appUserId);
-      var book = _db.Books.FirstOrDefault(b => b.Id == bookId);
+    public async Task<IActionResult> AddBookToUser(string appUserId, string bookId) {
+      var appUser = await _db.AppUsers.FirstOrDefaultAsync(u => u.Id == appUserId);
+      var book = await _db.Books.FirstOrDefaultAsync(b => b.Id == bookId);
 
       if (appUser != null && book != null) {
         var appUserBook = new AppUserBook {
@@ -106,15 +106,13 @@ namespace BookListMVC.Controllers {
           appUser.AppUserBooks = new List<AppUserBook>();
         }
 
-        if (appUser.AppUserBooks.Contains(appUserBook)) {
-          return RedirectToAction("Index");
-        } else {
+        if (!await IsBookInUser(bookId, appUserId)) {
           appUser.AppUserBooks.Add(appUserBook);
           _db.SaveChanges();
         }
       }
 
-      return RedirectToAction("Index");
+      return View(Book);
     }
 
     [HttpGet]
@@ -128,6 +126,15 @@ namespace BookListMVC.Controllers {
       }
 
       return Json(new { data = booksOfUser.ToList() });
+    }
+
+    [HttpGet]
+    public async Task<bool> IsBookInUser (string bookId, string appUserId) {
+      var appUserBooks = await _db.AppUserBooks.ToListAsync();
+      var appUser = await _db.AppUsers.FirstOrDefaultAsync(u => u.Id == appUserId);
+      var book = await _db.Books.FirstOrDefaultAsync(b => b.Id == bookId);
+
+      return appUserBooks.Any(ab => ab.AppUserId == appUserId && ab.BookId == bookId);
     }
 
     #endregion

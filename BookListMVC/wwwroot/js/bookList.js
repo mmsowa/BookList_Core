@@ -1,19 +1,20 @@
-﻿var dataTable;
+﻿let dataTable;
+let userId;
+
 
 $(document).ready(function () {
-  loadDataTable();
+  // const userBooks = getBooksForUser(userId);
+  // console.log(userBooks);
+  $.ajax({
+    type: 'GET',
+    url: "Users/GetCurrentUserId",
+    dataType: 'json',
+    success: function (data) {
+      userId = data.userId;
+    }
+  }).done(loadDataTable());
+
 });
-
-let userId;
-$.ajax({
-  url: "Users/GetCurrentUserId",
-  type: 'get',
-  dataType: 'html',
-  success: function (data) {
-    userId = data;
-  }
-}).done(() => { console.log(userId) });
-
 
 function loadDataTable() {
   dataTable = $('#DT_load').DataTable({
@@ -38,9 +39,12 @@ function loadDataTable() {
                       onclick=deleteBook('/books/Delete?id='+${data})>
                       Delete
                     </a>
-                    <a class='btn btn-primary text-white' style='cursor:pointer;' onclick=addBookToUser()>
+                    ${isBookAssignedToUser(data) ?
+              `<button class='btn btn-primary text-white' style='cursor:pointer;'
+                      onclick="addBookToUser('${userId}','${data}')">
                       Add to List
-                  </div>`;
+                    </button>
+                  </div>` : ''}`;
         }, "width": "22%"
       }
     ],
@@ -51,7 +55,7 @@ function loadDataTable() {
   });
 }
 
-function deleteBook (url) {
+function deleteBook(url) {
   swal({
     title: "Are you sure?",
     text: "Once deleted, you will not be able to recover",
@@ -79,4 +83,17 @@ function deleteBook (url) {
 
 function addBookToUser(_appUserId, _bookId) {
   $.post("/Books/AddBookToUser", { appUserId: _appUserId, bookId: _bookId });
+}
+
+function getBooksForUser(userId) {
+  $.ajax({
+    type: 'GET',
+    url: "Books/GetBooksForUser",
+    data: userId,
+    dataType: 'json',
+  });
+}
+
+function isBookAssignedToUser(id) {
+  return null;
 }
