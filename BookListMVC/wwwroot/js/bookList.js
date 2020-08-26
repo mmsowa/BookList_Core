@@ -2,6 +2,38 @@
 let userId;
 let userBooks;
 
+$(document).ready(function () {
+  console.info(window.location.pathname);
+  $.ajax({
+    type: 'GET',
+    url: "Users/GetCurrentUserId",
+    dataType: 'json',
+    async: false,
+    success: function (data) {
+      userId = data.id;
+    }
+  })
+
+  $.ajax({
+    type: 'GET',
+    url: "Books/GetBooksForUser",
+    data: {
+      id: userId
+    },
+    async: false,
+    success: function (response) {
+      userBooks = response;
+    }
+  }).done(function () {
+    console.log(userBooks);
+    if (window.location.pathname === "Books/MyBooks") {
+      loadMyBooksTable();
+    } else {
+      loadDataTable()
+    }
+  })
+});
+
 function loadDataTable() {
   dataTable = $('#DT_load').DataTable({
     "ajax": {
@@ -25,18 +57,47 @@ function loadDataTable() {
                       onclick=deleteBook("/Books/Delete?id=${data}")>
                       Delete
                     </a>
+                    &nbsp;
                     ${isBookAssignedToUser(data) ?
-                    `<button class='btn btn-secondary text-white' style='cursor:pointer; margin-left: 5px; width:170px;'
-                            onclick="removeBookFromUser('${userId}','${data}')">
-                            Remove from List
-                          </button>
-                        </div>`:
-                    `<button class='btn btn-primary text-white' style='cursor:pointer; margin-left: 5px; width:170px;'
-                            onclick="addBookToUser('${userId}','${data}')">
-                            Add to List
-                          </button>
-                        </div>`
-            }`;
+                    `<button class='btn btn-secondary text-white' style='cursor:pointer; width:170px;'
+                      onclick="removeBookFromUser('${userId}','${data}')">
+                      Remove from List
+                    </button>`
+                    :
+                    `<button class='btn btn-primary text-white' style='cursor:pointer; width:170px;'
+                      onclick="addBookToUser('${userId}','${data}')">
+                      Add to List
+                    </button>`}
+                </div>`;
+        }, "width": "33%"
+      }
+    ],
+    "language": {
+      "emptyTable": "no data found"
+    },
+    "width": "100%"
+  });
+}
+
+function loadMyBooksTable() {
+  dataTable = $('#DT_load').DataTable({
+    "ajax": {
+      "url": "/books/getall/",
+      "type": "GET",
+      "datatype": "json"
+    },
+    "columns": [
+      { "data": "name", "width": "20%" },
+      { "data": "author", "width": "20%" },
+      { "data": "isbn", "width": "20%" },
+      {
+        "data": "id",
+        "render": function (data) {
+          return `<div class="text-left">
+                    <button class='btn btn-secondary text-white' style = 'cursor:pointer; width:170px;' onclick = "removeBookFromUser('${userId}','${data}')" >
+                    Remove from List
+                    </button>
+                  </div>`
         }, "width": "33%"
       }
     ],
@@ -81,35 +142,7 @@ function removeBookFromUser(_appUserId, _bookId) {
   $.post("/Books/RemoveBookFromUser", { appUserId: _appUserId, bookId: _bookId }, location.reload());
 }
 
-
 function isBookAssignedToUser(_bookId) {
   var booksInUser = userBooks.data.filter((b) => b.id === _bookId);
   return booksInUser.length > 0
 }
-
-$(document).ready(function () {
-  $.ajax({
-    type: 'GET',
-    url: "Users/GetCurrentUserId",
-    dataType: 'json',
-    async: false,
-    success: function (data) {
-      userId = data.id;
-    }
-  })
-
-  $.ajax({
-    type: 'GET',
-    url: "Books/GetBooksForUser",
-    data: {
-      id: userId
-    },
-    async: false,
-    success: function (response) {
-      userBooks = response;
-    }
-  }).done(function () {
-    console.log(userBooks);
-    loadDataTable()
-  })
-});
