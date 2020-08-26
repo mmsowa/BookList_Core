@@ -1,20 +1,6 @@
 ﻿let dataTable;
 let userId;
-
-
-$(document).ready(function () {
-  // const userBooks = getBooksForUser(userId);
-  // console.log(userBooks);
-  $.ajax({
-    type: 'GET',
-    url: "Users/GetCurrentUserId",
-    dataType: 'json',
-    success: function (data) {
-      userId = data.userId;
-    }
-  }).done(loadDataTable());
-
-});
+let userBooks;
 
 function loadDataTable() {
   dataTable = $('#DT_load').DataTable({
@@ -36,16 +22,22 @@ function loadDataTable() {
                     </a>
                     &nbsp;
                     <a class='btn btn-danger text-white' style='cursor:pointer; width:70px;'
-                      onclick=deleteBook('/books/Delete?id='+${data})>
+                      onclick=deleteBook("/Books/Delete?id=${data}")>
                       Delete
                     </a>
                     ${isBookAssignedToUser(data) ?
-              `<button class='btn btn-primary text-white' style='cursor:pointer;'
-                      onclick="addBookToUser('${userId}','${data}')">
-                      Add to List
-                    </button>
-                  </div>` : ''}`;
-        }, "width": "22%"
+                    `<button class='btn btn-secondary text-white' style='cursor:pointer;'
+                            onclick="removeBookFromUser('${userId}','${data}')">
+                            Remove from List
+                          </button>
+                        </div>`:
+                    `<button class='btn btn-primary text-white' style='cursor:pointer;'
+                            onclick="addBookToUser('${userId}','${data}')">
+                            Add to List
+                          </button>
+                        </div>`
+            }`;
+        }, "width": "30%"
       }
     ],
     "language": {
@@ -82,18 +74,42 @@ function deleteBook(url) {
 }
 
 function addBookToUser(_appUserId, _bookId) {
-  $.post("/Books/AddBookToUser", { appUserId: _appUserId, bookId: _bookId });
+  $.post("/Books/AddBookToUser", { appUserId: _appUserId, bookId: _bookId }, location.reload());
 }
 
-function getBooksForUser(userId) {
+function removeBookToUser(_appUserId, _bookId) {
+  $.post("/Books/RemoveBookFromUser", { appUserId: _appUserId, bookId: _bookId });
+}
+
+
+function isBookAssignedToUser(_bookId) {
+  var booksInUser = userBooks.data.filter((b) => b.id === _bookId);
+  return booksInUser.length > 0
+}
+
+$(document).ready(function () {
+  $.ajax({
+    type: 'GET',
+    url: "Users/GetCurrentUserId",
+    dataType: 'json',
+    async: false,
+    success: function (data) {
+      userId = data.userId;
+    }
+  })
+
   $.ajax({
     type: 'GET',
     url: "Books/GetBooksForUser",
-    data: userId,
-    dataType: 'json',
-  });
-}
-
-function isBookAssignedToUser(id) {
-  return null;
-}
+    data: {
+      id: userId
+    },
+    async: false,
+    success: function (response) {
+      userBooks = response;
+    }
+  }).done(function () {
+    console.log(userBooks);
+    loadDataTable()
+  })
+});
