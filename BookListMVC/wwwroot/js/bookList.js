@@ -77,8 +77,8 @@ function addBookToUser(_appUserId, _bookId) {
   $.post("/Books/AddBookToUser", { appUserId: _appUserId, bookId: _bookId }, location.reload());
 }
 
-function removeBookToUser(_appUserId, _bookId) {
-  $.post("/Books/RemoveBookFromUser", { appUserId: _appUserId, bookId: _bookId });
+function removeBookFromUser(_appUserId, _bookId) {
+  $.post("/Books/RemoveBookFromUser", { appUserId: _appUserId, bookId: _bookId }, location.reload());
 }
 
 
