@@ -16,7 +16,7 @@ function loadDataTable() {
       {
         "data": "id",
         "render": function (data) {
-          return `<div class="text-center">
+          return `<div class="text-left">
                     <a href="/Books/Upsert?id=${data}" class='btn btn-success text-white' style='cursor:pointer; width:70px;'>
                         Edit
                     </a>
@@ -26,18 +26,18 @@ function loadDataTable() {
                       Delete
                     </a>
                     ${isBookAssignedToUser(data) ?
-                    `<button class='btn btn-secondary text-white' style='cursor:pointer;'
+                    `<button class='btn btn-secondary text-white' style='cursor:pointer; margin-left: 5px; width:170px;'
                             onclick="removeBookFromUser('${userId}','${data}')">
                             Remove from List
                           </button>
                         </div>`:
-                    `<button class='btn btn-primary text-white' style='cursor:pointer;'
+                    `<button class='btn btn-primary text-white' style='cursor:pointer; margin-left: 5px; width:170px;'
                             onclick="addBookToUser('${userId}','${data}')">
                             Add to List
                           </button>
                         </div>`
             }`;
-        }, "width": "30%"
+        }, "width": "33%"
       }
     ],
     "language": {
@@ -94,7 +94,7 @@ $(document).ready(function () {
     dataType: 'json',
     async: false,
     success: function (data) {
-      userId = data.userId;
+      userId = data.id;
     }
   })
 

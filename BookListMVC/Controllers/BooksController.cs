@@ -6,17 +6,20 @@ using System.Threading.Tasks;
 using BookListMVC.Areas.Identity.Data;
 using BookListMVC.Data;
 using BookListMVC.Models;
+using BookListMVC.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookListMVC.Controllers {
+  [Authorize]
   public class BooksController : Controller {
 
     private readonly AuthDbContext _db;
-
-    public BooksController(AuthDbContext db) {
+    private readonly UserService _userService;
+    public BooksController(AuthDbContext db, UserService userService) {
       _db = db;
+      _userService = userService;
     }
 
     [BindProperty]
@@ -79,6 +82,10 @@ namespace BookListMVC.Controllers {
       if (bookFromDb == null) {
         return Json(new { success = false, message = "Error while Deleting" });
       }
+
+      var user = _userService.GetUserCurrentUserId();
+      RemoveBookFromUser(id, user);
+
       _db.Books.Remove(bookFromDb);
       await _db.SaveChangesAsync();
       return Json(new { success = true, message = "Delete successful" });
@@ -112,16 +119,25 @@ namespace BookListMVC.Controllers {
         }
       }
 
-      return View(Book);
+      return RedirectToAction("Index");
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetBooksForUser (string userId) {
-      var appUserBooks = await _db.AppUserBooks.Where(ab => ab.AppUserId == userId).ToListAsync();
-      var books = await _db.Books.ToListAsync();
-      var booksOfUser = new List<object>();
+    [Route("Books/RemoveBookFromUser")]
+    [HttpPost]
+    public void RemoveBookFromUser(string bookId, string appUserId) {
+      var appUserBook = _db.AppUserBooks.First((row) => row.AppUserId == appUserId && row.BookId == bookId);
+      _db.Remove(appUserBook);
+      _db.SaveChanges();
+    }
 
-      foreach(var entry in appUserBooks) {
+    [Route("Books/GetBooksForUser")]
+    [HttpGet]
+    public async Task<IActionResult> GetBooksForUser(string id) {
+      var appUserBooks = await _db.AppUserBooks.Where(ab => ab.AppUserId == id).ToListAsync();
+      var books = await _db.Books.ToListAsync();
+      var booksOfUser = new List<Book>();
+
+      foreach (var entry in appUserBooks) {
         booksOfUser.Add(books.FirstOrDefault(b => b.Id == entry.BookId));
       }
 
@@ -129,7 +145,7 @@ namespace BookListMVC.Controllers {
     }
 
     [HttpGet]
-    public async Task<bool> IsBookInUser (string bookId, string appUserId) {
+    public async Task<bool> IsBookInUser(string bookId, string appUserId) {
       var appUserBooks = await _db.AppUserBooks.ToListAsync();
       var appUser = await _db.AppUsers.FirstOrDefaultAsync(u => u.Id == appUserId);
       var book = await _db.Books.FirstOrDefaultAsync(b => b.Id == bookId);
