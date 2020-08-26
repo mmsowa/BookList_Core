@@ -34,7 +34,7 @@ namespace BookListMVC.Controllers {
       return View();
     }
 
-    public IActionResult AppUserBooks() {
+    public IActionResult MyBooks() {
       return View();
     }
 
@@ -126,8 +126,10 @@ namespace BookListMVC.Controllers {
     [HttpPost]
     public void RemoveBookFromUser(string bookId, string appUserId) {
       var appUserBook = _db.AppUserBooks.First((row) => row.AppUserId == appUserId && row.BookId == bookId);
-      _db.Remove(appUserBook);
-      _db.SaveChanges();
+      if (appUserBook != null) {
+        _db.Remove(appUserBook);
+        _db.SaveChanges();
+      }
     }
 
     [Route("Books/GetBooksForUser")]

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BookListMVC.Views.Books
 {
-    public class AppUserBooksModel : PageModel
+    public class MyBooksModel : PageModel
     {
         public void OnGet()
         {
