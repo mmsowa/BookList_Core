@@ -9,14 +9,18 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using BookListMVC.Services;
 
 namespace BookListMVC.Controllers {
   [Authorize]
   public class AppUserController : Controller {
     private readonly AuthDbContext _db;
 
-    public AppUserController(AuthDbContext db) {
+    public UserService _userService;
+
+    public AppUserController(AuthDbContext db, UserService userService) {
       _db = db;
+      _userService = userService;
     }
 
     [BindProperty]
@@ -26,19 +30,22 @@ namespace BookListMVC.Controllers {
       return View();
     }
     
+
+    #region API Calls
+
     [Route("Users/GetCurrentUserId")]
     [HttpGet]
     public IActionResult GetCurrentUserId() {
-      var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-      return Json(new { userId });
+      return Json( new { id = _userService.GetUserCurrentUserId() });
     }
-
-    #region API Calls
+    
     [HttpGet]
     public async Task<IActionResult> GetAll() {
       return Json(new { data = await _db.AppUsers.ToListAsync() });
     }
 
+    [Route("Users/GetUser")]
+    [HttpGet]
     public async Task<IActionResult> GetUser(string id) {
       return Json(new { data = await _db.AppUsers.FirstOrDefaultAsync(u => u.Id == id) });
     }

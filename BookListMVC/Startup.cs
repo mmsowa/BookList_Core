@@ -4,12 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using BookListMVC.Data;
 using BookListMVC.Models;
+using BookListMVC.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 
 namespace BookListMVC {
@@ -28,6 +31,8 @@ namespace BookListMVC {
       services.AddControllersWithViews().AddRazorRuntimeCompilation();
       services.AddRazorPages();
       services.AddControllersWithViews().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+      services.AddHttpContextAccessor();
+      services.AddTransient<UserService>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
