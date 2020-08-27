@@ -32,7 +32,9 @@ namespace BookListMVC {
       services.AddRazorPages();
       services.AddControllersWithViews().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
       services.AddHttpContextAccessor();
+
       services.AddTransient<UserService>();
+      services.AddTransient<BookService>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
