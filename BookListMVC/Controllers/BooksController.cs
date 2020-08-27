@@ -17,9 +17,12 @@ namespace BookListMVC.Controllers {
 
     private readonly AuthDbContext _db;
     private readonly UserService _userService;
-    public BooksController(AuthDbContext db, UserService userService) {
+    private readonly BookService _bookService;
+
+    public BooksController(AuthDbContext db, UserService userService, BookService bookService) {
       _db = db;
       _userService = userService;
+      _bookService = bookService;
     }
 
     [BindProperty]
@@ -28,6 +31,7 @@ namespace BookListMVC.Controllers {
     [BindProperty]
     public AppUserBook AppUserBook { get; set; }
 
+    [BindProperty]
     public AppUser AppUser { get; set; }
 
     public IActionResult Index() {
@@ -39,7 +43,6 @@ namespace BookListMVC.Controllers {
     }
 
     #region API Calls
-
     public IActionResult Upsert(string? id) {
       Book = new Book();
       if (id == null) {
@@ -84,7 +87,7 @@ namespace BookListMVC.Controllers {
       }
 
       var user = _userService.GetUserCurrentUserId();
-      RemoveBookFromUser(id, user);
+      await RemoveBookFromUser(id, user);
 
       _db.Books.Remove(bookFromDb);
       await _db.SaveChangesAsync();
@@ -123,38 +126,27 @@ namespace BookListMVC.Controllers {
     }
 
     [Route("Books/RemoveBookFromUser")]
-    [HttpPost]
-    public void RemoveBookFromUser(string bookId, string appUserId) {
-      var appUserBook = _db.AppUserBooks.First((row) => row.AppUserId == appUserId && row.BookId == bookId);
+    [HttpDelete]
+    public async Task<IActionResult> RemoveBookFromUser(string bookId, string appUserId) {
+      var appUserBook = await _db.AppUserBooks.FirstAsync((row) => row.AppUserId == appUserId && row.BookId == bookId);
       if (appUserBook != null) {
         _db.Remove(appUserBook);
         _db.SaveChanges();
       }
+
+      return RedirectToAction("Index");
     }
 
     [Route("Books/GetBooksForUser")]
     [HttpGet]
     public async Task<IActionResult> GetBooksForUser(string id) {
-      var appUserBooks = await _db.AppUserBooks.Where(ab => ab.AppUserId == id).ToListAsync();
-      var books = await _db.Books.ToListAsync();
-      var booksOfUser = new List<Book>();
-
-      foreach (var entry in appUserBooks) {
-        booksOfUser.Add(books.FirstOrDefault(b => b.Id == entry.BookId));
-      }
-
-      return Json(new { data = booksOfUser.ToList() });
+      return Json(await _bookService.GetBooksForUser(id));
     }
 
     [HttpGet]
     public async Task<bool> IsBookInUser(string bookId, string appUserId) {
-      var appUserBooks = await _db.AppUserBooks.ToListAsync();
-      var appUser = await _db.AppUsers.FirstOrDefaultAsync(u => u.Id == appUserId);
-      var book = await _db.Books.FirstOrDefaultAsync(b => b.Id == bookId);
-
-      return appUserBooks.Any(ab => ab.AppUserId == appUserId && ab.BookId == bookId);
+      return await _bookService.IsBookInUser(bookId, appUserId);
     }
-
     #endregion
   }
 }

@@ -59,12 +59,12 @@ function loadDataTable() {
                     </a>
                     &nbsp;
                     ${isBookAssignedToUser(data) ?
-                    `<button class='btn btn-secondary text-white' style='cursor:pointer; width:170px;'
+              `<button class='btn btn-secondary text-white' style='cursor:pointer; width:170px;'
                       onclick="removeBookFromUser('${userId}','${data}')">
                       Remove from List
                     </button>`
-                    :
-                    `<button class='btn btn-primary text-white' style='cursor:pointer; width:170px;'
+              :
+              `<button class='btn btn-primary text-white' style='cursor:pointer; width:170px;'
                       onclick="addBookToUser('${userId}','${data}')">
                       Add to List
                     </button>`}
@@ -135,14 +135,27 @@ function deleteBook(url) {
 }
 
 function addBookToUser(_appUserId, _bookId) {
-  $.post("/Books/AddBookToUser", { appUserId: _appUserId, bookId: _bookId }, location.reload());
+  $.post("/Books/AddBookToUser", { appUserId: _appUserId, bookId: _bookId }, function () {
+      location.reload(true)
+  });
 }
 
 function removeBookFromUser(_appUserId, _bookId) {
-  $.post("/Books/RemoveBookFromUser", { appUserId: _appUserId, bookId: _bookId }, location.reload());
+  $.ajax({
+    url: "/Books/RemoveBookFromUser",
+    type: 'DELETE',
+    data: { appUserId: _appUserId, bookId: _bookId },
+    success: function () {
+        location.reload(true)
+    }
+  });
 }
 
 function isBookAssignedToUser(_bookId) {
   var booksInUser = userBooks.data.filter((b) => b.id === _bookId);
   return booksInUser.length > 0
+}
+
+function testButton() {
+  return $.get("/Books/Test", "", (data) => console.log(data));
 }
