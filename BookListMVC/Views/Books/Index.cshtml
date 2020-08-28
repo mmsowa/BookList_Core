@@ -1,28 +1,29 @@
 ﻿<br />
 <div class="container row p-0 elevation-4dp dark-theme--element">
-  <div class="col-6 dark-theme--header--background">
-    <h2 class="primary-color-500" style="margin-top: 10px;">Book List</h2>
-  </div>
-  <div class="col-6 dark-theme--header--background" style="width: 100%">
-    <a asp-action="Upsert" asp-controller="Books" class="btn btn-info form-control text-white elevation-2dp" style="margin-top: 10px; float:right; max-width: 175px">
-      Add New Book
-    </a>
-  </div>
-  <div class="col-12 p-3">
-    <table id="DtBooks" cellpadding="0" cellspacing="0" class="table table-striped table-bordered" style="width:100%">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Author</th>
-          <th>ISBN</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-    </table>
-  </div>
+    <div class="col-6 dark-theme--header--background">
+        <h2 class="primary-color-500" style="margin-top: 10px;">Book List</h2>
+    </div>
+    <div class="col-6 dark-theme--header--background" style="width: 100%">
+        <a asp-action="Upsert" asp-controller="Books" class="btn btn-info form-control text-white elevation-2dp" style="margin-top: 10px; float:right; max-width: 175px">
+            <i class="material-icons md-48">add</i>
+            <span>Add New Book</span>
+        </a>
+    </div>
+    <div class="col-12 p-3">
+        <table id="DtBooks" cellpadding="0" cellspacing="0" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>ISBN</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
 </div>
 
 @section Scripts{
-  <script type="module" src="~/js/bookList.js"></script>
-  <script type="module" src="~/js/bootstrap-select.js"></script>
+    <script src="~/js/bookList.js"></script>
+    <script type="module" src="~/js/bootstrap-select.js"></script>
 }

@@ -204,3 +204,8 @@ table.dataTable .even {
 .table.dataTable dataTables_paginate {
   color: #a3a3a3;
 }
+
+.material-icons {
+    vertical-align: middle;
+    padding-bottom: 3px;
+}

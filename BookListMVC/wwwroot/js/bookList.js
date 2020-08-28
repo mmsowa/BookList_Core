@@ -37,34 +37,34 @@ function loadDataTable() {
     },
     "columns": [
       { "data": "name", "width": "20%" },
-      { "data": "author", "width": "20%" },
-      { "data": "isbn", "width": "20%" },
+      { "data": "author", "width": "15%" },
+      { "data": "isbn", "width": "10%" },
       {
         "data": "id",
         "render": function (data) {
           return `<div class="text-left">
-                    <a href="/Books/Upsert?id=${data}" class='btn btn-success text-white elevation-2dp' style='cursor:pointer; width:70px;'>
+                    <a href="/Books/Upsert?id=${data}" class='btn btn-success text-white elevation-2dp' style='cursor:pointer; width:100x;'>
+                      <i class="material-icons">edit</i>
                         Edit
                     </a>
                     &nbsp;
-                    <a class='btn btn-danger text-white elevation-2dp' style='cursor:pointer; width:70px;'
-                      onclick=deleteBook("/Books/Delete?id=${data}")>
-                      Delete
+                    <a class='btn btn-danger text-white elevation-2dp' style='cursor:pointer; width:100px;' onclick=deleteBook("/Books/Delete?id=${data}")>
+                      <i class="material-icons">delete</i>
+                        Delete
                     </a>
                     &nbsp;
                     ${isBookAssignedToUser(data) ?
-              `<button class='btn btn-secondary text-white elevation-2dp' style='cursor:pointer; width:170px;'
-                      onclick="removeBookFromUser('${userId}','${data}')">
-                      Remove from List
-                    </button>`
-              :
-              `<button class='btn btn-primary text-white elevation-2dp' style='cursor:pointer; width:170px;'
-                      onclick="addBookToUser('${userId}','${data}')">
-                      Add to List
+              `<button class='btn btn-secondary text-white elevation-2dp' style='cursor:pointer; width:185px;'onclick="removeBookFromUser('${userId}','${data}')">
+              <i class="iconify" data-icon="mdi-playlist-remove" data-inline="false" style="font-size: 24px;"></i>
+                    Remove from List
+                    </button>` :
+              `<button class='btn btn-primary text-white elevation-2dp' style='cursor:pointer; width:185px;' onclick="addBookToUser('${userId}','${data}')">
+                     <i class="material-icons">playlist_add</i>
+                     Add to List
                     </button>`}
                 </div>`;
         },
-        "width": "33%",
+        "width": "30%",
         "orderable": false,
       }
     ],
@@ -78,8 +78,8 @@ function loadDataTable() {
       $(".dataTables_length select").selectpicker({
         width: '70px'
       })
-    }),
-  });
+    })
+  })
 }
 
 function loadMyBooksTable() {
