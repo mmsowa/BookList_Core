@@ -1,10 +1,10 @@
 ﻿<br />
-<div class="container row p-0 box-shadow dark-theme--element">
+<div class="container row p-0 elevation-4dp dark-theme--element">
   <div class="col-6 dark-theme--header--background">
     <h2 class="primary-color-500" style="margin-top: 10px;">Book List</h2>
   </div>
   <div class="col-6 dark-theme--header--background" style="width: 100%">
-    <a asp-action="Upsert" asp-controller="Books" class="btn btn-info form-control text-white box-shadow" style="margin-top: 10px; float:right; max-width: 175px">
+    <a asp-action="Upsert" asp-controller="Books" class="btn btn-info form-control text-white elevation-2dp" style="margin-top: 10px; float:right; max-width: 175px">
       Add New Book
     </a>
   </div>
@@ -23,5 +23,6 @@
 </div>
 
 @section Scripts{
-  <script src="~/js/bookList.js"></script>
+  <script type="module" src="~/js/bookList.js"></script>
+  <script type="module" src="~/js/bootstrap-select.js"></script>
 }

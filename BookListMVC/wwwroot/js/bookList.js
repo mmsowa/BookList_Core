@@ -20,7 +20,7 @@ $(document).ready(function () {
           if (window.location.pathname === "/Books/MyBooks") {
             loadMyBooksTable();
           } else {
-            loadDataTable()
+            loadDataTable();
           }
         }
       })
@@ -43,22 +43,22 @@ function loadDataTable() {
         "data": "id",
         "render": function (data) {
           return `<div class="text-left">
-                    <a href="/Books/Upsert?id=${data}" class='btn btn-success text-white' style='cursor:pointer; width:70px;'>
+                    <a href="/Books/Upsert?id=${data}" class='btn btn-success text-white elevation-2dp' style='cursor:pointer; width:70px;'>
                         Edit
                     </a>
                     &nbsp;
-                    <a class='btn btn-danger text-white' style='cursor:pointer; width:70px;'
+                    <a class='btn btn-danger text-white elevation-2dp' style='cursor:pointer; width:70px;'
                       onclick=deleteBook("/Books/Delete?id=${data}")>
                       Delete
                     </a>
                     &nbsp;
                     ${isBookAssignedToUser(data) ?
-              `<button class='btn btn-secondary text-white' style='cursor:pointer; width:170px;'
+              `<button class='btn btn-secondary text-white elevation-2dp' style='cursor:pointer; width:170px;'
                       onclick="removeBookFromUser('${userId}','${data}')">
                       Remove from List
                     </button>`
               :
-              `<button class='btn btn-primary text-white' style='cursor:pointer; width:170px;'
+              `<button class='btn btn-primary text-white elevation-2dp' style='cursor:pointer; width:170px;'
                       onclick="addBookToUser('${userId}','${data}')">
                       Add to List
                     </button>`}
@@ -72,7 +72,13 @@ function loadDataTable() {
       "emptyTable": "no data found"
     },
     "width": "100%",
+    "pagingType": "simple",
     "bFilter": false,
+    "initComplete": (() => {
+      $(".dataTables_length select").selectpicker({
+        width: '70px'
+      })
+    }),
   });
 }
 
