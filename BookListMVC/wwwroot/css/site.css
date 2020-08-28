@@ -18,9 +18,16 @@ a {
   border-color: #1861ac;
 }
 
+.hover-white:hover {
+  color: white !important;
+}
+
+.navbar {
+  background-color: #272727;
+}
+
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
+  color: #ffff;
   border-color: #1861ac;
 }
 
@@ -35,15 +42,8 @@ html {
   }
 }
 
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
-
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+  box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.20);
 }
 
 button.accept-policy {
@@ -62,12 +62,15 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
   font-family: "Roboto", sans-serif;
+  background-color: #121212;
 }
+
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
+  background-color: #272727;
   line-height: 60px; /* Vertically center the text there */
 }
 
@@ -87,4 +90,112 @@ div.login-logout-tab a.nav-link {
   font-size: 25px;
   color: #495057;
   text-align: center;
+}
+
+.primary-color-default {
+  color: #ffdc5b !important;
+}
+
+.primary-color-200 {
+  color: #ffe58a !important;
+}
+
+.primary-color-100 {
+  color: #feefb7 !important;
+}
+
+.primary-color-50 {
+  color: #fff9e3 !important;
+}
+
+.primary-color-400 {
+  color: #ffd23b !important;
+}
+
+.primary-color-500 {
+  color: #ffca27 !important;
+}
+
+.primary-color-600 {
+  color: #ffbc21 !important;
+}
+
+.primary-color-700 {
+  color: #ffa91c !important;
+}
+
+.primary-color-800 {
+  color: #ff9918 !important;
+}
+
+.primary-color-900 {
+  color: #ff7b10 !important;
+}
+
+.secondary-color {
+  color: #8eaf48 !important;
+}
+
+.dark-theme--element {
+  background-color: #272727;
+  border-radius: 8px;
+}
+
+.dark-theme--header--background {
+  background-color: #212121;
+}
+
+.dark-theme--background{
+  background-color: #1c1c1c;
+}
+
+.rounded-corners {
+  border-radius: 8px;
+}
+
+#DtBooks {
+  color: white;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.20);
+  background-color: #3C3C3C;
+  padding-bottom: 5px;
+  border-collapse: separate;
+  margin-bottom: 10px;
+}
+
+#DtBooks_length {
+  color: white;
+}
+
+#DtBooks_info {
+  color: #a3a3a3;
+}
+
+table.dataTable thead th  {
+  border: none;
+}
+
+table.dataTable td {
+  border: none;
+}
+
+table.dataTable .even {
+  background-color: #363636;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: inherit;
+}
+
+.text-muted-lighter {
+  color: #a3a3a3;
+}
+
+.text-black {
+  color: black;
+}
+
+.table.dataTable dataTables_paginate {
+  color: #a3a3a3;
 }
