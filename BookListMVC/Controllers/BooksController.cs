@@ -73,7 +73,7 @@ namespace BookListMVC.Controllers {
       return View(Book);
     }
 
-
+    [Route("Books/GetAll")]
     [HttpGet]
     public async Task<IActionResult> GetAll() {
       return Json(new { data = await _db.Books.ToListAsync() });
@@ -87,7 +87,7 @@ namespace BookListMVC.Controllers {
       }
 
       var user = _userService.GetUserCurrentUserId();
-      await RemoveBookFromUser(id, user);
+      RemoveBookFromUser(id, user);
 
       _db.Books.Remove(bookFromDb);
       await _db.SaveChangesAsync();

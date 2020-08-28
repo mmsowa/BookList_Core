@@ -15,13 +15,17 @@ namespace BookListMVC.Services {
       _db = db;
     }
 
-    public async Task<object> GetBooksForUser(string id) {
+    public async Task<object> GetBooksForUser(string id, bool includeAppUserBooks = false) {
       var appUserBooks = await _db.AppUserBooks.Where(ab => ab.AppUserId == id).ToListAsync();
       var books = await _db.Books.ToListAsync();
       var booksOfUser = new List<Book>();
 
       foreach (var entry in appUserBooks) {
-        booksOfUser.Add(books.FirstOrDefault(b => b.Id == entry.BookId));
+        var book = books.FirstOrDefault(b => b.Id == entry.BookId);
+        if (!includeAppUserBooks) {
+          book.AppUserBooks = null;
+        }
+        booksOfUser.Add(book);
       }
 
       return (new { data = booksOfUser.ToList() });

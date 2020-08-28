@@ -3,41 +3,35 @@ let userId;
 let userBooks;
 
 $(document).ready(function () {
-  console.info(window.location.pathname);
   $.ajax({
     type: 'GET',
-    url: "Users/GetCurrentUserId",
+    url: location.origin + "/Users/GetCurrentUserId",
     dataType: 'json',
-    async: false,
     success: function (data) {
       userId = data.id;
-    }
-  })
-
-  $.ajax({
-    type: 'GET',
-    url: "Books/GetBooksForUser",
-    data: {
-      id: userId
-    },
-    async: false,
-    success: function (response) {
-      userBooks = response;
-    }
-  }).done(function () {
-    console.log(userBooks);
-    if (window.location.pathname === "Books/MyBooks") {
-      loadMyBooksTable();
-    } else {
-      loadDataTable()
+      $.ajax({
+        type: 'GET',
+        url: location.origin + "/Books/GetBooksForUser",
+        data: {
+          id: userId
+        },
+        success: function (response) {
+          userBooks = response;
+          if (window.location.pathname === "/Books/MyBooks") {
+            loadMyBooksTable();
+          } else {
+            loadDataTable()
+          }
+        }
+      })
     }
   })
 });
 
 function loadDataTable() {
-  dataTable = $('#DT_load').DataTable({
+  dataTable = $('#DtBooks').DataTable({
     "ajax": {
-      "url": "/books/getall/",
+      "url": "/Books/GetAll/",
       "type": "GET",
       "datatype": "json"
     },
@@ -69,27 +63,31 @@ function loadDataTable() {
                       Add to List
                     </button>`}
                 </div>`;
-        }, "width": "33%"
+        },
+        "width": "33%",
+        "orderable": false,
       }
     ],
     "language": {
       "emptyTable": "no data found"
     },
-    "width": "100%"
+    "width": "100%",
+    "bFilter": false,
   });
 }
 
 function loadMyBooksTable() {
-  dataTable = $('#DT_load').DataTable({
+  dataTable = $('#DtBooks').DataTable({
     "ajax": {
-      "url": "/books/getall/",
+      "url": "/Books/GetBooksForUser/",
+      "data": userId,
       "type": "GET",
       "datatype": "json"
     },
     "columns": [
-      { "data": "name", "width": "20%" },
-      { "data": "author", "width": "20%" },
-      { "data": "isbn", "width": "20%" },
+      { "data": "name", "width": "25%" },
+      { "data": "author", "width": "25%" },
+      { "data": "isbn", "width": "25%" },
       {
         "data": "id",
         "render": function (data) {
@@ -98,7 +96,7 @@ function loadMyBooksTable() {
                     Remove from List
                     </button>
                   </div>`
-        }, "width": "33%"
+        }, "width": "25%"
       }
     ],
     "language": {
@@ -136,7 +134,7 @@ function deleteBook(url) {
 
 function addBookToUser(_appUserId, _bookId) {
   $.post("/Books/AddBookToUser", { appUserId: _appUserId, bookId: _bookId }, function () {
-      location.reload(true)
+    location.reload(true)
   });
 }
 
@@ -146,7 +144,7 @@ function removeBookFromUser(_appUserId, _bookId) {
     type: 'DELETE',
     data: { appUserId: _appUserId, bookId: _bookId },
     success: function () {
-        location.reload(true)
+      location.reload(true)
     }
   });
 }
