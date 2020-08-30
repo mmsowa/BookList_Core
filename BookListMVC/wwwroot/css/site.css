@@ -158,53 +158,6 @@ div.login-logout-tab a.nav-link {
   border-radius: 8px;
 }
 
-#DtBooks {
-  color: white;
-  border-radius: 5px;
-  border: none;
-  box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.20);
-  background-color: #3C3C3C;
-  padding-bottom: 5px;
-  border-collapse: separate;
-  margin-bottom: 10px;
-}
-
-#DtBooks_length {
-  color: white;
-}
-
-#DtBooks_info {
-  color: #a3a3a3;
-}
-
-table.dataTable thead th  {
-  border: none;
-}
-
-table.dataTable td {
-  border: none;
-}
-
-table.dataTable .even {
-  background-color: #363636;
-}
-
-.table-striped tbody tr:nth-of-type(odd) {
-  background-color: inherit;
-}
-
-.text-muted-lighter {
-  color: #a3a3a3;
-}
-
-.text-black {
-  color: black;
-}
-
-.table.dataTable dataTables_paginate {
-  color: #a3a3a3;
-}
-
 .material-icons {
     vertical-align: middle;
     padding-bottom: 3px;
