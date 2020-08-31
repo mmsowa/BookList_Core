@@ -36,12 +36,3 @@ table.dataTable .even {
 .table-striped tbody tr:nth-of-type(odd) {
     background-color: inherit;
 }
-
-.text-muted-lighter {
-    color: #a3a3a3;
-}
-
-.text-black {
-    color: black;
-}
-

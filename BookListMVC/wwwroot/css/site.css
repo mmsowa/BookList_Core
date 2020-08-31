@@ -36,6 +36,7 @@ a {
 html {
   font-size: 14px;
 }
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -43,7 +44,7 @@ html {
 }
 
 .elevation-2dp {
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.20);
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.20);
 }
 
 .elevation-4dp {
@@ -79,6 +80,7 @@ body {
   line-height: 60px; /* Vertically center the text there */
 }
 
+/* Login/Sign Up Form */ 
 div.login-logout-tab div.card-header {
   padding: 0px 0px 12px 0px;
 }
@@ -93,8 +95,19 @@ div.login-logout-tab li.nav-item {
 
 div.login-logout-tab a.nav-link {
   font-size: 25px;
-  color: #495057;
+  color: #a3a3a3;
   text-align: center;
+  border: unset;
+  box-shadow: unset;
+}
+
+div.login-logout-tab li.nav-item {
+  width: 50%;
+}
+
+.nav-tabs a.nav-link.active {
+  background-color: #1c1c1c;
+  border: unset
 }
 
 .primary-color-default {
@@ -141,6 +154,14 @@ div.login-logout-tab a.nav-link {
   color: #8eaf48 !important;
 }
 
+.text-muted-lighter {
+  color: #a3a3a3;
+}
+
+.text-black {
+  color: black;
+}
+
 .dark-theme--element {
   background-color: #272727;
   border-radius: 8px;
@@ -150,7 +171,7 @@ div.login-logout-tab a.nav-link {
   background-color: #212121;
 }
 
-.dark-theme--background{
+.dark-theme--background {
   background-color: #1c1c1c;
 }
 
@@ -159,6 +180,6 @@ div.login-logout-tab a.nav-link {
 }
 
 .material-icons {
-    vertical-align: middle;
-    padding-bottom: 3px;
+  vertical-align: middle;
+  padding-bottom: 3px;
 }

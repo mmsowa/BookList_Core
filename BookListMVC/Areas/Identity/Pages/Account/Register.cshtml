@@ -5,7 +5,7 @@
   Layout = "~/Areas/Identity/Pages/_AuthLayout.cshtml";
 }
 
-<form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+<form asp-route-returnUrl="@Model.ReturnUrl" method="post" class="m-3">
   <div asp-validation-summary="All" class="text-danger"></div>
   <div class="row">
     <div class="col-md-6">
@@ -45,7 +45,7 @@
     </div>
   </div>
 
-  <button type="submit" class="btn btn-primary">Register</button>
+  <button type="submit" class="btn btn-primary elevation-2dp">Register</button>
 </form>
 
 
