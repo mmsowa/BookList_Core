@@ -102,14 +102,23 @@ function loadMyBooksTable() {
                     Remove from List
                     </button>
                   </div>`
-        }, "width": "25%"
+        },
+        "width": "25%",
+        "orderable": false,
       }
     ],
     "language": {
       "emptyTable": "no data found"
     },
-    "width": "100%"
-  });
+    "width": "100%",
+    "pagingType": "simple",
+    "bFilter": false,
+    "initComplete": (() => {
+      $(".dataTables_length select").selectpicker({
+        width: '70px'
+      })
+    })
+  })
 }
 
 function deleteBook(url) {
