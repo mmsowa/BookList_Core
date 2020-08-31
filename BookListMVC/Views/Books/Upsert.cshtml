@@ -1,8 +1,8 @@
 ﻿@model BookListMVC.Models.Book
   <br />
-  <div class="container p-0 dark-theme--element">
-    <div class="col-12 dark-theme--header--background" style="padding-top: 10px;">
-      <h2 class="primary-color-500">@(Model.Id != null ? "Edit" : "Create") Book</h2>
+  <div class="container body-container p-0">
+    <div class="col-12 header-background-color" style="padding-top: 10px;">
+      <h2>@(Model.Id != null ? "Edit" : "Create") Book</h2>
     </div>
     <form method="post" class="col-12 pb-1 text-white">
       @if (Model.Id != null) {

@@ -1,0 +1,43 @@
+﻿html {
+  --color-primary-900: #ff7b10;
+  --color-primary-800: #ff9918;
+  --color-primary-700: #ffa91c;
+  --color-primary-600: #ffbc21;
+  --color-primary-500: #ffca27;
+  --color-primary-400: #ffd23b;
+  --color-primary-default: #ffdc5b;
+  --color-primary-200: #feefb7;
+  --color-primary-100: #ffe58a;
+  --color-primary-50: #fff9e3;
+  --color-muted-lighter: #a3a3a3;
+}
+
+  html[data-theme='light'] {
+    --bg: #FCFCFC;
+    --bg-container: #EBEBEB;
+    --bg-sub-element: #d3d3d3;
+    --color-text: #333333;
+    --color-header: #D7D7D7;
+    --bg-signup-tab-inactive: #d3d3d3;
+    --color-nav-link: var(--color-primary-900);
+    --color-h2: black;
+    --color-navbar-brand: var(--color-primary-800);
+    --color-toggle-theme-icon: black;
+    /*-- Datatables --*/
+    --even-row-background-color: #bdbdbd;
+  }
+
+  html[data-theme='dark'] {
+    --bg: #121212;
+    --bg-container: #272727;
+    --bg-sub-element: #3C3C3C;
+    --color-text: #fff;
+    --color-header: #212121;
+    --bg-signup-tab-inactive: #1c1c1c;
+    --color-nav-link: var(--color-primary-600);
+    --color-h2: var(--color-primary-500);
+    --color-navbar-brand: var(--color-primary-default);
+    --color-toggle-theme-icon: var(--color-primary-500);
+    /*-- Datatables --*/
+    --even-row-background-color: #363636;
+  }
