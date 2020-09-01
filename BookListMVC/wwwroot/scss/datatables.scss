@@ -1,0 +1,39 @@
+﻿@import './_colors.scss';
+@import './_themes.scss';
+
+#DtBooks {
+  color: $color-text;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.20);
+  background-color: $bg-sub-element;
+  padding-bottom: 5px;
+  border-collapse: separate;
+  margin-bottom: 10px;
+}
+
+#DtBooks_info {
+  color: $color-muted-lighter;
+}
+
+#DtBooks_length {
+  color: $color-muted-lighter;
+}
+
+table.dataTable {
+  thead th {
+    border: none;
+  }
+
+  td {
+    border: none;
+  }
+
+  .even {
+    background-color: $even-row-background-color;
+  }
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: inherit;
+}
