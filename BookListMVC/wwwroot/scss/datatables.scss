@@ -2,11 +2,11 @@
 @import './_themes.scss';
 
 #DtBooks {
-  color: $color-text;
+  color: var(--color-text);
   border-radius: 5px;
   border: none;
   box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.20);
-  background-color: $bg-sub-element;
+  background-color: var(--bg-sub-element);
   padding-bottom: 5px;
   border-collapse: separate;
   margin-bottom: 10px;
@@ -30,7 +30,7 @@ table.dataTable {
   }
 
   .even {
-    background-color: $even-row-background-color;
+    background-color: var(--even-row-background-color);
   }
 }
 

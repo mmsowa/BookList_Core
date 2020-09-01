@@ -8,19 +8,19 @@ html {
 }
 
 body {
-  background-color: $bg;
+  background-color: var(--bg);
   /* Margin bottom by footer height */
   margin-bottom: 60px;
   font-family: "Roboto", sans-serif;
 }
 
 .body-container {
-  background-color: $bg-container;
+  background-color: var(--bg-container);
   border-radius: 8px;
 }
 
 .header-background-color {
-  background-color: $color-header;
+  background-color: var(--color-header);
   /*#212121;*/
 }
 
@@ -35,16 +35,16 @@ a.navbar-brand {
 }
 
 .nav-link {
-  color: $color-nav-link;
+  color: var(--color-nav-link);
 }
 
 h2,
 .p-500 {
-  color: $color-h2;
+  color: var(--color-h2);
 }
 
 .navbar-brand {
-  color: $color-navbar-brand;
+  color: var(--color-navbar-brand);
 }
 
 /* Provide sufficient contrast against white background */
@@ -92,7 +92,7 @@ button.accept-policy {
   bottom: 0;
   width: 100%;
   white-space: nowrap;
-  background-color: $bg-container;
+  background-color: var(--bg-container);
   line-height: 60px; /* Vertically center the text there */
 }
 
@@ -125,7 +125,7 @@ div.login-logout-tab {
 }
 
 .nav-tabs a.nav-link.active {
-  background-color: $bg-signup-tab-inactive;
+  background-color: var(--bg-signup-tab-inactive);
   border: unset
 }
 
@@ -192,8 +192,8 @@ div.login-logout-tab {
 
 svg.toggle-theme-icon {
   transform: rotate(180deg);
-  color: $color-toggle-theme-icon;
-  fill: $color-toggle-theme-icon;
+  color: var(--color-toggle-theme-icon);
+  fill: var(--color-toggle-theme-icon);
 }
 
 label:active:after {

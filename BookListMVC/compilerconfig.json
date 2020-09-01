@@ -1,0 +1,18 @@
+﻿[
+  {
+    "outputFile": "wwwroot/scss/layout.css",
+    "inputFile": "wwwroot/scss/layout.scss"
+  },
+  {
+    "outputFile": "wwwroot/scss/datatables.css",
+    "inputFile": "wwwroot/scss/datatables.scss"
+  },
+  {
+    "outputFile": "wwwroot/scss/_themes.css",
+    "inputFile": "wwwroot/scss/_themes.scss"
+  },
+  {
+    "outputFile": "wwwroot/scss/_colors.css",
+    "inputFile": "wwwroot/scss/_colors.scss"
+  }
+]

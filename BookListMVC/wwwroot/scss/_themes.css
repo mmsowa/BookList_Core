@@ -1,18 +1,16 @@
-﻿@import '_colors.scss';
-html[data-theme='light'] {
+﻿html[data-theme='light'] {
   --bg: #FCFCFC;
   --bg-container: #EBEBEB;
   --bg-sub-element: #d3d3d3;
   --color-text: #333333;
   --color-header: #D7D7D7;
   --bg-signup-tab-inactive: #d3d3d3;
-  --color-nav-link: $color-primary-900;
+  --color-nav-link: #ff7b10;
   --color-h2: black;
-  --color-navbar-brand: $color-primary-800;
+  --color-navbar-brand: #ff9918;
   --color-toggle-theme-icon: black;
   /*-- Datatables --*/
-  --even-row-background-color: #bdbdbd;
-}
+  --even-row-background-color: #bdbdbd; }
 
 html[data-theme='dark'] {
   --bg: #121212;
@@ -21,10 +19,9 @@ html[data-theme='dark'] {
   --color-text: #fff;
   --color-header: #212121;
   --bg-signup-tab-inactive: #1c1c1c;
-  --color-nav-link: $color-primary-600;
-  --color-h2: $color-primary-500;
-  --color-navbar-brand: $color-primary-default;
-  --color-toggle-theme-icon: $color-primary-500;
+  --color-nav-link: #ffbc21;
+  --color-h2: #ffca27;
+  --color-navbar-brand: #ffdc5b;
+  --color-toggle-theme-icon: #ffca27;
   /*-- Datatables --*/
-  --even-row-background-color: #363636;
-}
+  --even-row-background-color: #363636; }
