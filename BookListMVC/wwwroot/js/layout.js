@@ -1,16 +1,23 @@
-﻿var checkbox = document.querySelector('input[name=theme]');
+﻿const themeCheckBox = document.querySelector('input[name=theme]');
+let themeCheckboxValue = JSON.parse(localStorage.getItem('themeCheckboxValue')) || {};
 
-checkbox.addEventListener('change', function () {
-  if (this.checked) {
-    trans()
-    document.documentElement.setAttribute('data-theme', 'dark')
-  } else {
-    trans()
-    document.documentElement.setAttribute('data-theme', 'light')
-  }
-})
+$(document).ready(function () {
+  $.each(themeCheckboxValue, function (key, value) {
+    $("#" + key).prop('checked', value);
+  });
 
-let trans = () => {
+  themeCheckBox.addEventListener('change', function () {
+    trans()
+    localStorage.setItem("themeCheckboxValue", JSON.stringify(this.checked));
+    if (this.checked) {
+      document.documentElement.setAttribute('data-theme', 'dark')
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light')
+    }
+  })
+});
+
+function trans() {
   document.documentElement.classList.add('transition');
   window.setTimeout(() => {
     document.documentElement.classList.remove('transition')
