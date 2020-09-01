@@ -1,0 +1,30 @@
+﻿@import '_colors.scss';
+html[data-theme='light'] {
+  --bg: #FCFCFC;
+  --bg-container: #EBEBEB;
+  --bg-sub-element: #d3d3d3;
+  --color-text: #333333;
+  --color-header: #D7D7D7;
+  --bg-signup-tab-inactive: #d3d3d3;
+  --color-nav-link: $color-primary-900;
+  --color-h2: black;
+  --color-navbar-brand: $color-primary-800;
+  --color-toggle-theme-icon: black;
+  /*-- Datatables --*/
+  --even-row-background-color: #bdbdbd;
+}
+
+html[data-theme='dark'] {
+  --bg: #121212;
+  --bg-container: #272727;
+  --bg-sub-element: #3C3C3C;
+  --color-text: #fff;
+  --color-header: #212121;
+  --bg-signup-tab-inactive: #1c1c1c;
+  --color-nav-link: $color-primary-600;
+  --color-h2: $color-primary-500;
+  --color-navbar-brand: $color-primary-default;
+  --color-toggle-theme-icon: $color-primary-500;
+  /*-- Datatables --*/
+  --even-row-background-color: #363636;
+}
