@@ -2,10 +2,6 @@
 let themeCheckboxValue = JSON.parse(localStorage.getItem('themeCheckboxValue')) || {};
 
 $(document).ready(function () {
-  $.each(themeCheckboxValue, function (key, value) {
-    $("#" + key).prop('checked', value);
-  });
-
   themeCheckBox.addEventListener('change', function () {
     trans()
     localStorage.setItem("themeCheckboxValue", JSON.stringify(this.checked));
