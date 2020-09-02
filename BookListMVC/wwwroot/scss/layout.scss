@@ -12,6 +12,7 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
   font-family: "Roboto", sans-serif;
+  color: var(--color-text);
 }
 
 .body-container {
@@ -142,7 +143,7 @@ div.login-logout-tab {
 }
 
 #toggle-theme {
-  padding-top: 6px;
+  padding-top: 7px;
   
   .nav-item {
     padding: 0px;

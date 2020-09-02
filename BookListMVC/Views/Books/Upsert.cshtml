@@ -4,7 +4,7 @@
     <div class="col-12 header-background-color" style="padding-top: 10px;">
       <h2>@(Model.Id != null ? "Edit" : "Create") Book</h2>
     </div>
-    <form method="post" class="col-12 pb-1 text-white">
+    <form method="post" class="col-12 pb-1">
       @if (Model.Id != null) {
         <input type="hidden" asp-for="Id" />
       }

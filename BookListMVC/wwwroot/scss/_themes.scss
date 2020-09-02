@@ -1,5 +1,6 @@
 ﻿@import '_colors.scss';
 html[data-theme='light'] {
+  color: black; // Fallback
   --bg: #FCFCFC;
   --bg-container: #EBEBEB;
   --bg-sub-element: #d3d3d3;
@@ -15,6 +16,7 @@ html[data-theme='light'] {
 }
 
 html[data-theme='dark'] {
+  color: white; // Fallback
   --bg: #121212;
   --bg-container: #272727;
   --bg-sub-element: #3C3C3C;

@@ -1,4 +1,5 @@
 ﻿html[data-theme='light'] {
+  color: black;
   --bg: #FCFCFC;
   --bg-container: #EBEBEB;
   --bg-sub-element: #d3d3d3;
@@ -13,6 +14,7 @@
   --even-row-background-color: #bdbdbd; }
 
 html[data-theme='dark'] {
+  color: white;
   --bg: #121212;
   --bg-container: #272727;
   --bg-sub-element: #3C3C3C;
