@@ -135,10 +135,10 @@ div.login-logout-tab li.nav-item {
   vertical-align: middle;
   padding-bottom: 3px; }
 
-#toggle-theme.nav-item {
-  position: absolute;
-  right: 325px;
-  top: 15px; }
+#toggle-theme {
+  padding-top: 6px; }
+  #toggle-theme .nav-item {
+    padding: 0px; }
 
 #toggle-theme-checkbox {
   height: 0;

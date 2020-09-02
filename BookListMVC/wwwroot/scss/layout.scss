@@ -141,10 +141,12 @@ div.login-logout-tab {
   padding-bottom: 3px;
 }
 
-#toggle-theme.nav-item {
-  position: absolute;
-  right: 325px;
-  top: 15px;
+#toggle-theme {
+  padding-top: 6px;
+  
+  .nav-item {
+    padding: 0px;
+  }
 }
 
 #toggle-theme-checkbox {
