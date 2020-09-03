@@ -88,9 +88,6 @@ namespace BookListMVC.Controllers {
         return Json(new { success = false, message = "Error while Deleting" });
       }
 
-      var user = _userService.GetUserCurrentUserId();
-      RemoveBookFromUser(id, user);
-
       _db.Books.Remove(bookFromDb);
       await _db.SaveChangesAsync();
       return Json(new { success = true, message = "Delete successful" });
