@@ -1,4 +1,5 @@
-﻿let dataTable;
+﻿let allBooksDataTable;
+let myBooksDataTable;
 let userId;
 let userBooks;
 
@@ -17,19 +18,15 @@ $(document).ready(function () {
         },
         success: function (response) {
           userBooks = response;
-          if (window.location.pathname === "/Books/MyBooks") {
-            loadMyBooksTable();
-          } else {
-            loadDataTable();
-          }
+          loadDataTables();
         }
       })
     }
   })
 });
 
-function loadDataTable() {
-  dataTable = $('#DtBooks').DataTable({
+function loadDataTables() {
+  allBooksDataTable = $('#DtBooks').DataTable({
     "ajax": {
       "url": "/Books/GetAll/",
       "type": "GET",
@@ -74,19 +71,14 @@ function loadDataTable() {
     "width": "100%",
     "pagingType": "simple",
     "bFilter": false,
-    "initComplete": (() => {
-      $(".dataTables_length select").selectpicker({
-        width: '70px'
-      })
-    })
-  })
-}
+    "bLengthChange": false,
+    "colReorder": true,
+    "stateSave": true
+  });
 
-function loadMyBooksTable() {
-  dataTable = $('#DtBooks').DataTable({
+  myBooksDataTable = $('#DtMyBooks').DataTable({
     "ajax": {
-      "url": "/Books/GetBooksForUser/",
-      "data": userId,
+      "url": `/Books/GetBooksForUser?id=${userId}`,
       "type": "GET",
       "datatype": "json"
     },
@@ -113,11 +105,9 @@ function loadMyBooksTable() {
     "width": "100%",
     "pagingType": "simple",
     "bFilter": false,
-    "initComplete": (() => {
-      $(".dataTables_length select").selectpicker({
-        width: '70px'
-      })
-    })
+    "bLengthChange": false,
+    "colReorder": true,
+    "stateSave": true
   })
 }
 
@@ -136,7 +126,7 @@ function deleteBook(url) {
         success: function (data) {
           if (data.success) {
             toastr.success(data.message);
-            dataTable.ajax.reload();
+            allBooksDataTable.ajax.reload();
           }
           else {
             toastr.error(data.message);
@@ -167,8 +157,4 @@ function removeBookFromUser(_appUserId, _bookId) {
 function isBookAssignedToUser(_bookId) {
   var booksInUser = userBooks.data.filter((b) => b.id === _bookId);
   return booksInUser.length > 0
-}
-
-function testButton() {
-  return $.get("/Books/Test", "", (data) => console.log(data));
 }
