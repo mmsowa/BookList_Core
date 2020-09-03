@@ -41,7 +41,8 @@ html[data-theme='dark'] {
   border-collapse: separate;
   margin-bottom: 10px; }
 
-div#DtBooks_info.dataTables_info {
+div#DtBooks_info.dataTables_info,
+div#DtMyBooks_info.dataTables_info {
   color: #666 !important; }
 
 .dataTables_length {
