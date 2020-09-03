@@ -100,7 +100,7 @@ function loadDataTables() {
       }
     ],
     "language": {
-      "emptyTable": "no data found"
+      "emptyTable": "No books in your list yet"
     },
     "width": "100%",
     "pagingType": "simple",
@@ -126,7 +126,8 @@ function deleteBook(url) {
         success: function (data) {
           if (data.success) {
             toastr.success(data.message);
-            allBooksDataTable.ajax.reload();
+            // TODO: use allBooksDataTable.ajax.reload() and make sure that My List updates aswell;
+            location.reload(true);
           }
           else {
             toastr.error(data.message);
@@ -139,7 +140,7 @@ function deleteBook(url) {
 
 function addBookToUser(_appUserId, _bookId) {
   $.post("/Books/AddBookToUser", { appUserId: _appUserId, bookId: _bookId }, function () {
-    location.reload(true)
+    location.reload(true);
   });
 }
 
@@ -149,7 +150,7 @@ function removeBookFromUser(_appUserId, _bookId) {
     type: 'DELETE',
     data: { appUserId: _appUserId, bookId: _bookId },
     success: function () {
-      location.reload(true)
+      location.reload(true);
     }
   });
 }
