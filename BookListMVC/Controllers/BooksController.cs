@@ -43,7 +43,9 @@ namespace BookListMVC.Controllers {
     }
 
     #region API Calls
+#pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
     public IActionResult Upsert(string? id) {
+#pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
       Book = new Book();
       if (id == null) {
         //create
@@ -137,10 +139,9 @@ namespace BookListMVC.Controllers {
       return RedirectToAction("Index");
     }
 
-    [Route("Books/GetBooksForUser")]
     [HttpGet]
-    public async Task<IActionResult> GetBooksForUser(string id) {
-      return Json(await _bookService.GetBooksForUser(id));
+    public async Task<IActionResult> GetBooksForUser(string id, bool includeAppUserBooks = false) {
+      return Json(await _bookService.GetBooksForUser(id, includeAppUserBooks));
     }
 
     [HttpGet]
