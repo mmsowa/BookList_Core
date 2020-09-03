@@ -74,10 +74,6 @@ h2,
 .hover-white:hover {
   color: white !important; }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #ffff;
-  border-color: #1861ac; }
-
 @media (min-width: 768px) {
   html {
     font-size: 16px; } }
@@ -121,7 +117,11 @@ div.login-logout-tab a.nav-link {
 div.login-logout-tab li.nav-item {
   width: 50%; }
 
-.nav-tabs a.nav-link.active {
+div.login-logout-tab .nav-pills .nav-link.active, div.login-logout-tab .nav-pills .show > .nav-link {
+  color: #ffff;
+  border-color: #1861ac; }
+
+div.login-logout-tab .nav-tabs a.nav-link.active {
   background-color: var(--bg-signup-tab-inactive);
   border: unset; }
 

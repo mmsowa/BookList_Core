@@ -19,7 +19,7 @@
   <header>
     <nav class="body-container navbar navbar-expand-sm navbar-toggleable-sm elevation-4dp mb-3">
       <div class="container">
-        <a class="navbar-brand" asp-area="" asp-controller="Books" asp-action="Index">BookList</a>
+        <a class="navbar-brand" asp-area="" asp-controller="Books" asp-action="Index">Book List</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -27,10 +27,7 @@
         <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
           <ul class="navbar-nav flex-grow-1">
             <li class="nav-item">
-              <a class="nav-link hover-white" asp-area="" asp-controller="Books" asp-action="Index">All Books</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link hover-white" asp-area="" asp-controller="Books" asp-action="MyBooks">My Books</a>
+              <a class="nav-link hover-white" asp-area="" asp-controller="Books" asp-action="Index">Books</a>
             </li>
             <li class="nav-item">
               <a class="nav-link hover-white" asp-area="" asp-controller="Debug" asp-action="Index">Debug</a>
@@ -49,14 +46,14 @@
 
   <footer class="footer text-muted">
     <div class="container">
-      &copy; 2020 - Book List MVC
+      &copy; 2020 - Book List
     </div>
   </footer>
   <script src="~/lib/jquery/dist/jquery.min.js"></script>
   <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="~/js/site.js" asp-append-version="true"></script>
   <script src="~/js/layout.js" asp-append-version="true"></script>
-  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.21/cr-1.5.2/rr-1.2.7/datatables.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>

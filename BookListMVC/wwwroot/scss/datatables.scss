@@ -3,7 +3,10 @@
 
 #DtBooks, #DtMyBooks {
   color: var(--color-text);
-  border-radius: 5px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
   border: none;
   box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.20);
   background-color: var(--bg-sub-element);
@@ -12,15 +15,15 @@
   margin-bottom: 10px;
 }
 
-.dataTables_info {
-  color: $color-muted-lighter;
+div#DtBooks_info.dataTables_info {
+  color: #666 !important
 }
 
 .dataTables_length {
   color: $color-muted-lighter;
 }
-.dataTables_wrapper {
 
+.dataTables_wrapper {
 }
 
 table.dataTable {
@@ -39,4 +42,41 @@ table.dataTable {
 
 .table-striped tbody tr:nth-of-type(odd) {
   background-color: inherit;
+}
+
+
+.datatable-navbar {
+  border-color: var(--bg-sub-element);
+  border: unset;
+}
+
+.datatable-tab {
+  z-index: 1;
+
+  a {
+    .nav-link {
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 0px;
+      border-bottom-left-radius: 0px;
+    }
+  }
+}
+
+.nav-tabs a.nav-link {
+  &.active {
+    background-color: var(--bg-sub-element);
+    color: var(--color-text);
+  }
+
+  border: unset;
+}
+
+.nav-tabs a.nav-link:hover {
+  border: unset;
+  color: white;
+}
+
+.nav-tabs .nav-item {
+  margin-bottom: -2px;
 }
