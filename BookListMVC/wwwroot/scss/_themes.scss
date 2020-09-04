@@ -7,28 +7,11 @@ html[data-theme='light'] {
   --color-text: #333333;
   --color-header: #D7D7D7;
   --bg-signup-tab-inactive: #d3d3d3;
-  --color-nav-link: $color-primary-900;
+  --color-nav-link: $color-secondary-300;
   --color-h2: black;
-  --color-navbar-brand: $color-primary-800;
+  --color-navbar-brand: $color-secondary-400;
   --color-toggle-theme-icon: black;
   /*-- Datatables -- */
-  --even-row-background-color: #bdbdbd;
-  --bg-book-img: url("../img/book_bg_light.jpg");
-}
-
-html[data-theme='light-2'] {
-  color: black; // Fallback
-  --bg: #FCFCFC;
-  --bg-container: #EBEBEB;
-  --bg-sub-element: #d3d3d3;
-  --color-text: #333333;
-  --color-header: #D7D7D7;
-  --bg-signup-tab-inactive: #d3d3d3;
-  --color-nav-link: $color-primary-900;
-  --color-h2: black;
-  --color-navbar-brand: $color-primary-800;
-  --color-toggle-theme-icon: black;
-  /*-- Datatables --*/
   --even-row-background-color: #bdbdbd;
   --bg-book-img: url("../img/book_bg_light.jpg");
 }
