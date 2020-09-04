@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <None Include="compilerconfig.json" />
+    <None Include="wwwroot\img\book_bg_dark.jpg" />
   </ItemGroup>
 
   <ItemGroup>
