@@ -10,8 +10,25 @@
   --color-h2: black;
   --color-navbar-brand: #ff9918;
   --color-toggle-theme-icon: black;
+  /*-- Datatables -- */
+  --even-row-background-color: #bdbdbd;
+  --bg-book-img: url("../img/book_bg_light.jpg"); }
+
+html[data-theme='light-2'] {
+  color: black;
+  --bg: #FCFCFC;
+  --bg-container: #EBEBEB;
+  --bg-sub-element: #d3d3d3;
+  --color-text: #333333;
+  --color-header: #D7D7D7;
+  --bg-signup-tab-inactive: #d3d3d3;
+  --color-nav-link: #ff7b10;
+  --color-h2: black;
+  --color-navbar-brand: #ff9918;
+  --color-toggle-theme-icon: black;
   /*-- Datatables --*/
-  --even-row-background-color: #bdbdbd; }
+  --even-row-background-color: #bdbdbd;
+  --bg-book-img: url("../img/book_bg_light.jpg"); }
 
 html[data-theme='dark'] {
   color: white;
@@ -26,4 +43,5 @@ html[data-theme='dark'] {
   --color-navbar-brand: #ffdc5b;
   --color-toggle-theme-icon: #ffca27;
   /*-- Datatables --*/
-  --even-row-background-color: #363636; }
+  --even-row-background-color: #363636;
+  --bg-book-img: url("../img/book_bg_dark.jpg"); }
