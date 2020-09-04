@@ -7,7 +7,7 @@
   --color-header: #D7D7D7;
   --bg-signup-tab-inactive: #d3d3d3;
   --color-nav-link: #de5986;
-  --color-h2: black;
+  --color-h2: #cb104b;
   --color-navbar-brand: #d7366c;
   --color-toggle-theme-icon: black;
   /*-- Datatables -- */
@@ -51,7 +51,8 @@ div#DtMyBooks_info.dataTables_info {
   color: #a3a3a3; }
 
 table.dataTable thead th {
-  border: none; }
+  border: none;
+  color: var(--color-nav-link); }
 
 table.dataTable td {
   border: none; }
