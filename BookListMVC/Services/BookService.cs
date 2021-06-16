@@ -1,8 +1,6 @@
 ﻿using BookListMVC.Data;
 using BookListMVC.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,22 +18,22 @@ namespace BookListMVC.Services {
       var books = await _db.Books.ToListAsync();
       var booksOfUser = new List<Book>();
 
-      foreach (var entry in appUserBooks) {
-        var book = books.FirstOrDefault(b => b.Id == entry.BookId);
+      foreach (var book in appUserBooks.Select(entry => books.FirstOrDefault(b => b.Id == entry.BookId))) {
+        if (book == null) {
+          return null ;
+        }
+
         if (!includeAppUserBooks) {
           book.AppUserBooks = null;
         }
         booksOfUser.Add(book);
       }
 
-      return (new { data = booksOfUser.ToList() });
+      return booksOfUser.ToList();
     }
 
     public async Task<bool> IsBookInUser(string bookId, string appUserId) {
       var appUserBooks = await _db.AppUserBooks.ToListAsync();
-      var appUser = await _db.AppUsers.FirstOrDefaultAsync(u => u.Id == appUserId);
-      var book = await _db.Books.FirstOrDefaultAsync(b => b.Id == bookId);
-
       return appUserBooks.Any(ab => ab.AppUserId == appUserId && ab.BookId == bookId);
     }
   }

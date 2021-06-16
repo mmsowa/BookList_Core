@@ -29,9 +29,6 @@
             <li class="nav-item">
               <a class="nav-link" asp-area="" asp-controller="Books" asp-action="Index">Books</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" asp-area="" asp-controller="Debug" asp-action="Index">Debug</a>
-            </li>
           </ul>
         </div>
         <partial name="_LoginPartial.cshtml" />
@@ -57,6 +54,6 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
-  @RenderSection("Scripts", required: false)
+  @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

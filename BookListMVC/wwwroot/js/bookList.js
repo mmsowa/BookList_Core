@@ -156,6 +156,6 @@ function removeBookFromUser(_appUserId, _bookId) {
 }
 
 function isBookAssignedToUser(_bookId) {
-  var booksInUser = userBooks.data.filter((b) => b.id === _bookId);
+  const booksInUser = userBooks.data.filter((b) => b.id === _bookId);
   return booksInUser.length > 0
 }

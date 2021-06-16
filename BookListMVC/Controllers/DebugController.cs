@@ -18,10 +18,6 @@ namespace BookListMVC.Controllers {
       _userService = userService;
     }
 
-    public IActionResult Index() {
-      return View();
-    }
-
     [Route("Debug/GetAppUserBooksForActiveUser")]
     [HttpGet]
     public async Task<ICollection<AppUserBook>> GetAppUserBooksForActiveUser() {
