@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using BookListMVC.Areas.Identity.Data;
 using BookListMVC.Data;
@@ -13,20 +11,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookListMVC.Controllers {
   [Authorize]
+  [Route("Books")]
   public class BooksController : Controller {
 
     private readonly AuthDbContext _db;
-    private readonly UserService _userService;
     private readonly BookService _bookService;
 
-    public BooksController(AuthDbContext db, UserService userService, BookService bookService) {
+    public BooksController(AuthDbContext db, BookService bookService) {
       _db = db;
-      _userService = userService;
       _bookService = bookService;
     }
 
     [BindProperty]
-    public Book Book { get; set; }
+    private Book Book { get; set; }
 
     [BindProperty]
     public AppUserBook AppUserBook { get; set; }
@@ -38,19 +35,13 @@ namespace BookListMVC.Controllers {
       return View();
     }
 
-    public IActionResult MyBooks() {
-      return View();
-    }
-
-    #region API Calls
-#pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
-    public IActionResult Upsert(string? id) {
-#pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+    public IActionResult Upsert(string id) {
       Book = new Book();
       if (id == null) {
         //create
         return View(Book);
       }
+
       //update
       Book = _db.Books.FirstOrDefault(u => u.Id == id);
       if (Book == null) {
@@ -62,20 +53,21 @@ namespace BookListMVC.Controllers {
     [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult Upsert() {
-      if (ModelState.IsValid) {
-        if (Book.Id == null) {
-          //create
-          _db.Books.Add(Book);
-        } else {
-          _db.Books.Update(Book);
-        }
-        _db.SaveChanges();
-        return RedirectToAction("Index");
+      if (!ModelState.IsValid) {
+        return View(Book);
       }
-      return View(Book);
+
+      if (Book.Id == null) {
+        _db.Books.Add(Book);
+      } else {
+        _db.Books.Update(Book);
+      }
+
+      _db.SaveChanges();
+      return RedirectToAction("Index");
     }
 
-    [Route("Books/GetAll")]
+    [Route("GetAll")]
     [HttpGet]
     public async Task<IActionResult> GetAll() {
       return Json(new { data = await _db.Books.ToListAsync() });
@@ -103,35 +95,39 @@ namespace BookListMVC.Controllers {
       var appUser = await _db.AppUsers.FirstOrDefaultAsync(u => u.Id == appUserId);
       var book = await _db.Books.FirstOrDefaultAsync(b => b.Id == bookId);
 
-      if (appUser != null && book != null) {
-        var appUserBook = new AppUserBook {
-          AppUserId = appUserId,
-          AppUser = appUser,
-          BookId = bookId,
-          Book = book,
-        };
-
-        if (appUser.AppUserBooks == null) {
-          appUser.AppUserBooks = new List<AppUserBook>();
-        }
-
-        if (!await IsBookInUser(bookId, appUserId)) {
-          appUser.AppUserBooks.Add(appUserBook);
-          _db.SaveChanges();
-        }
+      if (appUser == null || book == null) {
+        return RedirectToAction("Index");
       }
+
+      var appUserBook = new AppUserBook {
+        AppUserId = appUserId,
+        AppUser = appUser,
+        BookId = bookId,
+        Book = book,
+      };
+
+      appUser.AppUserBooks ??= new List<AppUserBook>();
+
+      if (await IsBookInUser(bookId, appUserId)) {
+        return RedirectToAction("Index");
+      }
+
+      appUser.AppUserBooks.Add(appUserBook);
+      await _db.SaveChangesAsync();
 
       return RedirectToAction("Index");
     }
 
-    [Route("Books/RemoveBookFromUser")]
+    [Route("RemoveBookFromUser")]
     [HttpDelete]
     public async Task<IActionResult> RemoveBookFromUser(string bookId, string appUserId) {
       var appUserBook = await _db.AppUserBooks.FirstAsync((row) => row.AppUserId == appUserId && row.BookId == bookId);
-      if (appUserBook != null) {
-        _db.Remove(appUserBook);
-        _db.SaveChanges();
+      if (appUserBook == null) {
+        return RedirectToAction("Index");
       }
+
+      _db.Remove(appUserBook);
+      await _db.SaveChangesAsync();
 
       return RedirectToAction("Index");
     }
@@ -145,6 +141,5 @@ namespace BookListMVC.Controllers {
     public async Task<bool> IsBookInUser(string bookId, string appUserId) {
       return await _bookService.IsBookInUser(bookId, appUserId);
     }
-    #endregion
   }
 }
