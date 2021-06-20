@@ -29,7 +29,7 @@ namespace BookListMVC.Services {
         booksOfUser.Add(book);
       }
 
-      return booksOfUser.ToList();
+      return (new { data = booksOfUser.ToList() });
     }
 
     public async Task<bool> IsBookInUser(string bookId, string appUserId) {

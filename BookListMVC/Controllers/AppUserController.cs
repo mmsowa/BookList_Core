@@ -27,6 +27,7 @@ namespace BookListMVC.Controllers {
     }
 
     [HttpGet]
+    [Route("GetAll")]
     public async Task<IActionResult> GetAll() {
       return Json(new { data = await _db.AppUsers.ToListAsync() });
     }
@@ -36,5 +37,6 @@ namespace BookListMVC.Controllers {
     public async Task<IActionResult> GetUser(string id) {
       return Json(new { data = await _db.AppUsers.FirstOrDefaultAsync(u => u.Id == id) });
     }
+
   }
 }

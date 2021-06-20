@@ -11,7 +11,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookListMVC.Controllers {
   [Authorize]
-  [Route("Books")]
   public class BooksController : Controller {
 
     private readonly AuthDbContext _db;
@@ -23,7 +22,7 @@ namespace BookListMVC.Controllers {
     }
 
     [BindProperty]
-    private Book Book { get; set; }
+    public Book Book { get; set; }
 
     [BindProperty]
     public AppUserBook AppUserBook { get; set; }
@@ -31,6 +30,8 @@ namespace BookListMVC.Controllers {
     [BindProperty]
     public AppUser AppUser { get; set; }
 
+    [Route("/")]
+    [Route("/Books")]
     public IActionResult Index() {
       return View();
     }
@@ -54,7 +55,7 @@ namespace BookListMVC.Controllers {
     [ValidateAntiForgeryToken]
     public IActionResult Upsert() {
       if (!ModelState.IsValid) {
-        return View(Book);
+        return View();
       }
 
       if (Book.Id == null) {
@@ -67,7 +68,6 @@ namespace BookListMVC.Controllers {
       return RedirectToAction("Index");
     }
 
-    [Route("GetAll")]
     [HttpGet]
     public async Task<IActionResult> GetAll() {
       return Json(new { data = await _db.Books.ToListAsync() });
@@ -118,7 +118,6 @@ namespace BookListMVC.Controllers {
       return RedirectToAction("Index");
     }
 
-    [Route("RemoveBookFromUser")]
     [HttpDelete]
     public async Task<IActionResult> RemoveBookFromUser(string bookId, string appUserId) {
       var appUserBook = await _db.AppUserBooks.FirstAsync((row) => row.AppUserId == appUserId && row.BookId == bookId);
