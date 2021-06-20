@@ -1,4 +1,4 @@
-﻿html[data-theme='light'] {
+html[data-theme=light] {
   color: black;
   --bg: #FCFCFC;
   --bg-container: #EBEBEB;
@@ -6,15 +6,16 @@
   --color-text: #333333;
   --color-header: #D7D7D7;
   --bg-signup-tab-inactive: #d3d3d3;
-  --color-nav-link: #de5986;
-  --color-h2: #cb104b;
-  --color-navbar-brand: #d7366c;
+  --color-nav-link: $color-secondary-300;
+  --color-h2: $color-secondary-600;
+  --color-navbar-brand: $color-secondary-400;
   --color-toggle-theme-icon: black;
   /*-- Datatables -- */
   --even-row-background-color: #bdbdbd;
-  --bg-book-img: url("../img/book_bg_light.jpg"); }
+  --bg-book-img: url("../img/book_bg_light.jpg");
+}
 
-html[data-theme='dark'] {
+html[data-theme=dark] {
   color: white;
   --bg: #121212;
   --bg-container: #272727;
@@ -22,73 +23,89 @@ html[data-theme='dark'] {
   --color-text: #fff;
   --color-header: #212121;
   --bg-signup-tab-inactive: #1c1c1c;
-  --color-nav-link: #ffbc21;
-  --color-h2: #ffca27;
-  --color-navbar-brand: #ffdc5b;
-  --color-toggle-theme-icon: #ffca27;
+  --color-nav-link: $color-primary-600;
+  --color-h2: $color-primary-500;
+  --color-navbar-brand: $color-primary-default;
+  --color-toggle-theme-icon: $color-primary-500;
   /*-- Datatables --*/
   --even-row-background-color: #363636;
-  --bg-book-img: url("../img/book_bg_dark.jpg"); }
+  --bg-book-img: url("../img/book_bg_dark.jpg");
+}
 
 html {
   position: relative;
   min-height: 100%;
-  font-size: 14px; }
+  font-size: 14px;
+}
 
 body {
   background-color: var(--bg);
   /* Margin bottom by footer height */
   margin-bottom: 60px;
   font-family: "Roboto", sans-serif;
-  color: var(--color-text); }
+  color: var(--color-text);
+}
 
 .body-container {
   background-color: var(--bg-container);
-  border-radius: 8px; }
+  border-radius: 8px;
+}
 
 .header-background-color {
   background-color: var(--color-header);
-  /*#212121;*/ }
+  /*#212121;*/
+}
 
 nav.body-container {
-  border-radius: unset; }
+  border-radius: unset;
+}
 
 a.navbar-brand {
   white-space: normal;
   text-align: center;
-  word-break: break-all; }
+  word-break: break-all;
+}
 
 .nav-link {
-  color: var(--color-nav-link); }
+  color: var(--color-nav-link);
+}
 
 h2,
 .p-500 {
-  color: var(--color-h2); }
+  color: var(--color-h2);
+}
 
 .navbar-brand {
-  color: var(--color-navbar-brand); }
+  color: var(--color-navbar-brand);
+}
 
 .btn-primary {
   color: #fff;
   background-color: #1b6ec2;
-  border-color: #1861ac; }
+  border-color: #1861ac;
+}
 
 @media (min-width: 768px) {
   html {
-    font-size: 16px; } }
-
+    font-size: 16px;
+  }
+}
 .booklist-bg {
-  background-image: var(--bg-book-img); }
+  background-image: var(--bg-book-img);
+}
 
 .elevation-2dp {
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2); }
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
 
 .elevation-4dp {
-  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2); }
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
 
 button.accept-policy {
   font-size: 1rem;
-  line-height: inherit; }
+  line-height: inherit;
+}
 
 .footer {
   position: absolute;
@@ -97,58 +114,67 @@ button.accept-policy {
   white-space: nowrap;
   background-color: var(--bg-container);
   line-height: 60px;
-  /* Vertically center the text there */ }
+  /* Vertically center the text there */
+}
 
 /* Login/Sign Up Form */
 div.login-logout-tab div.card-header {
-  padding: 0px 0px 12px 0px; }
-
+  padding: 0px 0px 12px 0px;
+}
 div.login-logout-tab ul.nav-tabs {
-  margin: 0px 0px -12px 0px; }
-
+  margin: 0px 0px -12px 0px;
+}
 div.login-logout-tab li.nav-item {
-  width: 50%; }
-
+  width: 50%;
+}
 div.login-logout-tab a.nav-link {
   font-size: 25px;
   color: #a3a3a3;
   text-align: center;
   border: unset;
-  box-shadow: unset; }
-
+  box-shadow: unset;
+}
 div.login-logout-tab li.nav-item {
-  width: 50%; }
-
+  width: 50%;
+}
 div.login-logout-tab .nav-pills .nav-link.active, div.login-logout-tab .nav-pills .show > .nav-link {
   color: #ffff;
-  border-color: #1861ac; }
-
+  border-color: #1861ac;
+}
 div.login-logout-tab .nav-tabs a.nav-link.active {
   background-color: var(--bg-signup-tab-inactive);
-  border: unset; }
+  border: unset;
+}
 
 .text-muted-lighter {
-  color: #a3a3a3; }
+  color: #a3a3a3;
+}
 
 .text-black {
-  color: black; }
+  color: black;
+}
 
 .rounded-corners {
-  border-radius: 8px; }
+  border-radius: 8px;
+}
 
 .material-icons {
   vertical-align: middle;
-  padding-bottom: 3px; }
+  padding-bottom: 3px;
+}
 
 #toggle-theme {
-  padding-top: 7px; }
-  #toggle-theme .nav-item {
-    padding: 0px; }
+  padding-top: 7px;
+}
+#toggle-theme .nav-item {
+  padding: 0px;
+}
 
 #toggle-theme-checkbox {
   height: 0;
   width: 0;
-  visibility: hidden; }
+  visibility: hidden;
+}
 
 #toggle-theme-label {
   cursor: pointer;
@@ -158,10 +184,11 @@ div.login-logout-tab .nav-tabs a.nav-link.active {
   background: grey;
   float: right;
   border-radius: 100px;
-  position: relative; }
+  position: relative;
+}
 
 #toggle-theme-label:after {
-  content: '';
+  content: "";
   position: absolute;
   top: 3px;
   left: 3px;
@@ -169,26 +196,34 @@ div.login-logout-tab .nav-tabs a.nav-link.active {
   height: 20px;
   background: #fff;
   border-radius: 90px;
-  transition: 0.3s; }
+  transition: 0.3s;
+}
 
 #toggle-theme-checkbox:checked + label {
-  background: #ffbc21; }
+  background: #ffbc21;
+}
 
 #toggle-theme-checkbox:checked + label:after {
   left: calc(100% - 5px);
-  transform: translateX(-100%); }
+  transform: translateX(-100%);
+}
 
 svg.toggle-theme-icon {
   transform: rotate(180deg);
   color: var(--color-toggle-theme-icon);
-  fill: var(--color-toggle-theme-icon); }
+  fill: var(--color-toggle-theme-icon);
+}
 
 label:active:after {
-  width: 45px; }
+  width: 45px;
+}
 
 html.transition,
 html.transition *,
 html.transition *:before,
 html.transition *:after {
   transition: all 750ms !important;
-  transition-delay: 0 !important; }
+  transition-delay: 0 !important;
+}
+
+/*# sourceMappingURL=layout.css.map */
