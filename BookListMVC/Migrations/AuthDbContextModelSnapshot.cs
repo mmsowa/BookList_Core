@@ -27,6 +27,9 @@ namespace BookListMVC.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<double>("AccountBalance")
+                        .HasColumnType("float");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -43,6 +46,9 @@ namespace BookListMVC.Migrations
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("LibraryCardId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -79,6 +85,8 @@ namespace BookListMVC.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("LibraryCardId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
 
@@ -90,6 +98,23 @@ namespace BookListMVC.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("BookListMVC.Areas.Identity.Data.LibraryCard", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("LastDayOfValidity")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("isBanned")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LibraryCard");
+                });
+
             modelBuilder.Entity("BookListMVC.Models.AppUserBook", b =>
                 {
                     b.Property<string>("AppUserId")
@@ -97,6 +122,9 @@ namespace BookListMVC.Migrations
 
                     b.Property<string>("BookId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("BorrowedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("AppUserId", "BookId");
 
@@ -108,6 +136,7 @@ namespace BookListMVC.Migrations
             modelBuilder.Entity("BookListMVC.Models.Book", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Author")
@@ -119,6 +148,9 @@ namespace BookListMVC.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TimesExtended")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -258,6 +290,13 @@ namespace BookListMVC.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("BookListMVC.Areas.Identity.Data.AppUser", b =>
+                {
+                    b.HasOne("BookListMVC.Areas.Identity.Data.LibraryCard", "LibraryCard")
+                        .WithMany()
+                        .HasForeignKey("LibraryCardId");
                 });
 
             modelBuilder.Entity("BookListMVC.Models.AppUserBook", b =>

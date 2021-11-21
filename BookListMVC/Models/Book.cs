@@ -20,5 +20,7 @@ namespace BookListMVC.Models {
     public string ISBN { get; set; }
 
     public ICollection<AppUserBook> AppUserBooks { get; set; }
+
+    public int TimesExtended { get; set; }
   }
 }

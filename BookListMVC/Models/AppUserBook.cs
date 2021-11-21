@@ -11,5 +11,7 @@ namespace BookListMVC.Models {
 
     public string BookId { get; set; }
     public Book Book { get; set; }
+
+    public DateTime BorrowedAt { get; set; }
   }
 }

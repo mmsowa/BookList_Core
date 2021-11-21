@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BookListMVC.Areas.Identity.Data;
@@ -15,10 +16,12 @@ namespace BookListMVC.Controllers {
 
     private readonly AuthDbContext _db;
     private readonly BookService _bookService;
+    private readonly UserService _userService;
 
-    public BooksController(AuthDbContext db, BookService bookService) {
+    public BooksController(AuthDbContext db, BookService bookService, UserService userService) {
       _db = db;
       _bookService = bookService;
+      _userService = userService;
     }
 
     [BindProperty]
@@ -32,8 +35,10 @@ namespace BookListMVC.Controllers {
 
     [Route("/")]
     [Route("/Books")]
-    public IActionResult Index() {
-      return View();
+    public async Task<IActionResult> Index() {
+      var userId = _userService.GetUserCurrentUserId();
+      var appUser = await _db.AppUsers.FirstOrDefaultAsync(u => u.Id ==userId);
+      return View("Index", appUser);
     }
 
     public IActionResult Upsert(string id) {
@@ -95,7 +100,7 @@ namespace BookListMVC.Controllers {
       var appUser = await _db.AppUsers.FirstOrDefaultAsync(u => u.Id == appUserId);
       var book = await _db.Books.FirstOrDefaultAsync(b => b.Id == bookId);
 
-      if (appUser == null || book == null) {
+      if (appUser == null || book == null || appUser.LibraryCard is { isBanned: true }) {
         return RedirectToAction("Index");
       }
 
@@ -117,12 +122,35 @@ namespace BookListMVC.Controllers {
 
       return RedirectToAction("Index");
     }
+    public async Task<IActionResult> ExtendBook(string appUserId, string bookId) {
+      var appUser = await _db.AppUsers.FirstOrDefaultAsync(u => u.Id == appUserId);
+      var book = await _db.Books.FirstOrDefaultAsync(b => b.Id == bookId);
+      var appUserBook = await _db.AppUserBooks.FirstOrDefaultAsync(b => b.AppUserId == appUser.Id && b.BookId == book.Id);
+
+      if (appUser == null || book == null || appUserBook == null || appUser.LibraryCard is { isBanned: true } || book.TimesExtended > 5) {
+        return RedirectToAction("Index");
+      }
+
+      book.TimesExtended += 1;
+      appUserBook.BorrowedAt = DateTime.Today;
+      await _db.SaveChangesAsync();
+      return RedirectToAction("Index");
+    }
 
     [HttpDelete]
     public async Task<IActionResult> RemoveBookFromUser(string bookId, string appUserId) {
       var appUserBook = await _db.AppUserBooks.FirstAsync((row) => row.AppUserId == appUserId && row.BookId == bookId);
       if (appUserBook == null) {
         return RedirectToAction("Index");
+      }
+
+      var user = appUserBook.AppUser;
+      if (DateTime.Today > appUserBook.BorrowedAt.AddDays(14)) {
+        if (user.AccountBalance < 20) {
+          user.LibraryCard.isBanned = true;
+        } else {
+          appUserBook.AppUser.AccountBalance -= 20;
+        }
       }
 
       _db.Remove(appUserBook);

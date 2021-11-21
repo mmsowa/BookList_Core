@@ -16,6 +16,10 @@ namespace BookListMVC.Areas.Identity.Data {
     [Column(TypeName = "nvarchar(100)")]
     public string LastName { get; set; }
 
+    public double AccountBalance { get; set; }
+
     public ICollection<AppUserBook> AppUserBooks { get; set; }
+
+    public LibraryCard LibraryCard { get; set; }
   }
 }
