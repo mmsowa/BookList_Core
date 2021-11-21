@@ -100,7 +100,7 @@ namespace BookListMVC.Migrations
 
             modelBuilder.Entity("BookListMVC.Areas.Identity.Data.LibraryCard", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("LibraryCardId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
@@ -110,7 +110,7 @@ namespace BookListMVC.Migrations
                     b.Property<bool>("isBanned")
                         .HasColumnType("bit");
 
-                    b.HasKey("Id");
+                    b.HasKey("LibraryCardId");
 
                     b.ToTable("LibraryCard");
                 });

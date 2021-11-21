@@ -7,10 +7,11 @@ namespace BookListMVC.Areas.Identity.Data
   public class LibraryCard
   {
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public string Id { get; set; }
+    public string LibraryCardId { get; set; }
 
     public DateTime LastDayOfValidity { get; set; }
 
     public bool isBanned { get; set; }
+
   }
 }

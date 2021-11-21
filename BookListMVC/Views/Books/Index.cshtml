@@ -11,7 +11,10 @@
   <div class="col-12 p-0">
     <div class="tab-content col-12 p-3">
       <div id="AllBooks" class="tab-pane active">
-        Guthaben: @Model.AccountBalance €
+        Guthaben: @Model?.AccountBalance €
+        @if (Model?.LibraryCard is {isBanned: true }){
+          <p style="color: red"> KARTE GESPERRT</p>
+        }
         <table id="DtBooks" cellpadding="0" cellspacing="0" class="table table-striped table-bordered dataTable" style="width: 100%">
           <thead>
           <tr>
